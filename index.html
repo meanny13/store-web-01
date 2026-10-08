@@ -7,36 +7,38 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css?family=Itim&family=Mali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Itim&family=K2D:wght@400;500;700&family=Mali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <script>
 tailwind.config={theme:{extend:{colors:{
 'warm-cream':'var(--color-bg)','cream-card':'var(--color-card)','soft-blush':'var(--color-blush)','blush-dark':'var(--color-primary)','soft-brown':'var(--color-text)',
-'pastel-peach':'#FDE8E1','sage-green':'#E1ECE5','sage-dark':'#81A690','pastel-yellow':'#FCF4DD','muted-brown':'#8F7D77',
+'pastel-peach':'#FFE5EC','sage-green':'#E1ECE5','sage-dark':'#81A690','pastel-yellow':'#FFF0F5','muted-brown':'#8B6868',
 'ctrl-btn':'var(--color-ctrl)','rev-box':'var(--color-revbox)'},
-fontFamily:{mali:['Mali','cursive'],itim:['Itim','cursive']},
-boxShadow:{scrapbook:'4px 6px 0 rgba(101,82,77,.12)','soft-float':'0 12px 28px -6px rgba(226,151,146,.25)','glow-circle':'0 0 18px rgba(226,151,146,.35)'},
+fontFamily:{mali:['Mali','cursive'],itim:['Itim','cursive'],k2d:['K2D','sans-serif']},
+boxShadow:{scrapbook:'4px 6px 0 rgba(214,122,143,.15)','soft-float':'0 12px 28px -6px rgba(255,154,162,.3)','glow-circle':'0 0 18px rgba(255,154,162,.4)'},
 aspectRatio:{banner:'1122/495'}}}}
 </script>
 <style>
-:root{--color-bg:#FAF6F0;--color-card:#FFFDF9;--color-primary:#E29792;--color-blush:#F7E7E6;--color-text:#65524D;--color-border:#E29792;--color-ctrl:#FCF4DD;--color-revbox:#FFFDF9}
-body{font-family:'Mali',cursive;background-color:var(--color-bg);color:var(--color-text);background-image:radial-gradient(var(--color-primary) .7px,transparent .7px);background-size:28px 28px;overflow-x:hidden}
+:root{--color-bg:#FFF9FB;--color-card:#FFFFFF;--color-primary:#FF7096;--color-blush:#FFE4E9;--color-text:#5C4040;--color-border:#FFB6C1;--color-ctrl:#FFE4E9;--color-revbox:#FFFFFF}
+body{font-family:'Mali','K2D',cursive;background-color:var(--color-bg);color:var(--color-text);background-image:radial-gradient(var(--color-border) .8px,transparent .8px);background-size:26px 26px;overflow-x:hidden}
 h1,h2,h3,h4,.font-handwritten{font-family:'Itim',cursive}
 .custom-border-dashed{border-color:var(--color-border)!important}
 .custom-primary-text{color:var(--color-primary)!important}
-.washi-tape{position:absolute;height:24px;width:90px;background:rgba(247,231,230,.85);border-left:2px dashed rgba(226,151,146,.4);border-right:2px dashed rgba(226,151,146,.4);z-index:25;pointer-events:none}
+.washi-tape{position:absolute;height:24px;width:90px;background:rgba(255,182,193,.65);border-left:2px dashed rgba(255,112,150,.4);border-right:2px dashed rgba(255,112,150,.4);z-index:25;pointer-events:none}
 .tab-diary{transition:all .25s}
 .tab-diary.active{background:var(--color-blush);font-weight:700;transform:translateY(-2px);border-bottom:3px solid var(--color-primary)}
 .tilt-hover{transition:all .3s}.tilt-hover:hover{transform:translateY(-3px) rotate(-1deg)}
 .backdrop-blur-custom{backdrop-filter:blur(8px)}
 @keyframes floatMusic{0%{transform:translateY(0);opacity:0}50%{opacity:1}100%{transform:translateY(-26px) rotate(20deg);opacity:0}}
 .music-note-1{animation:floatMusic 2s infinite ease-out}
-.inp{width:100%;font-size:.75rem;padding:.6rem .9rem;border-radius:1rem;border:2px solid var(--color-blush);background:var(--color-bg);color:var(--color-text);outline:none}
+.inp{width:100%;font-size:.8rem;padding:.6rem .9rem;border-radius:1rem;border:2px solid var(--color-blush);background:var(--color-bg);color:var(--color-text);outline:none}
 .inp:focus{border-color:var(--color-primary)}
 input[type=color].inp{height:40px;padding:2px}
 /* ===== Admin edit mode ===== */
 .admin-only{display:none!important}
 .editing .admin-only{display:inline-flex!important}
+/* ซ่อนปุ่มเขียนรีวิวเฉพาะตอนเป็นแอดมิน เพื่อป้องกันการโกงรีวิว */
+.editing #review-btn-container {display:none!important}
 [data-edit]{white-space:pre-line}
 .ebtn{width:1.75rem;height:1.75rem;border-radius:9999px;background:#fff;border:1.5px solid var(--color-primary);color:var(--color-text);font-size:.7rem;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,.12);cursor:pointer}
 .ebtn:hover{background:var(--color-blush)}
@@ -67,8 +69,8 @@ input[type=color].inp{height:40px;padding:2px}
       <div class="flex items-center gap-2 shrink-0 relative">
         <div id="music-notes" class="absolute -top-3 right-14 pointer-events-none hidden"><i class="fa-solid fa-music music-note-1 absolute text-blush-dark text-xs"></i></div>
         <button class="admin-only ebtn" title="แก้ไขเพลง" onclick="editMusic()"><i class="fa-solid fa-pen"></i></button>
-        <button id="play-btn" onclick="toggleAudio()" title="เล่น/หยุดเพลง" class="w-9 h-9 rounded-xl bg-ctrl-btn border-2 border-soft-brown/15 shadow-scrapbook flex items-center justify-center text-sm active:scale-95 shrink-0"><i class="fa-solid fa-play ml-0.5 text-blush-dark"></i></button>
-        <button id="gear" onclick="handleGear()" title="หลังบ้าน" class="w-9 h-9 rounded-xl bg-ctrl-btn border-2 border-soft-brown/15 shadow-scrapbook flex items-center justify-center text-sm active:scale-95 shrink-0"><i class="fa-solid fa-gear text-blush-dark"></i></button>
+        <button id="play-btn" onclick="toggleAudio()" title="เล่น/หยุดเพลง" class="w-9 h-9 rounded-xl bg-ctrl-btn border-2 border-soft-brown/15 shadow-scrapbook flex items-center justify-center text-sm active:scale-95 shrink-0" style="background-color: var(--color-ctrl);"><i class="fa-solid fa-play ml-0.5 text-blush-dark"></i></button>
+        <button id="gear" onclick="handleGear()" title="หลังบ้าน" class="w-9 h-9 rounded-xl bg-ctrl-btn border-2 border-soft-brown/15 shadow-scrapbook flex items-center justify-center text-sm active:scale-95 shrink-0" style="background-color: var(--color-ctrl);"><i class="fa-solid fa-gear text-blush-dark"></i></button>
       </div>
     </div>
     <nav class="w-full flex justify-center pt-1">
@@ -87,7 +89,7 @@ input[type=color].inp{height:40px;padding:2px}
     <div class="relative w-full mt-4">
       <div class="washi-tape -top-3 left-12 rotate-[-6deg]"></div>
       <div class="washi-tape -bottom-3 right-12 rotate-[4deg]"></div>
-      <div class="relative w-full aspect-banner rounded-3xl overflow-hidden border-4 border-white shadow-soft-float bg-gradient-to-r from-soft-blush via-pastel-yellow to-sage-green p-4 sm:p-8 flex items-center justify-between">
+      <div class="relative w-full aspect-banner rounded-3xl overflow-hidden border-4 border-white shadow-soft-float bg-gradient-to-r from-soft-blush via-pastel-yellow to-pastel-peach p-4 sm:p-8 flex items-center justify-between">
         <img id="banner-store-img" alt="banner" class="absolute inset-0 w-full h-full object-cover hidden">
         <button class="admin-only ebtn ebtn-l absolute top-3 right-3 z-20" onclick="editSection('banner')"><i class="fa-solid fa-pen"></i> แก้ไขแบนเนอร์</button>
         <div id="banner-store-overlay" class="relative z-10 max-w-xl space-y-2 sm:space-y-3">
@@ -101,7 +103,7 @@ input[type=color].inp{height:40px;padding:2px}
         </div>
         <div class="hidden md:flex relative w-64 h-full items-center justify-center z-10">
           <div class="relative w-52 h-56 bg-white p-3 rounded-2xl shadow-scrapbook rotate-3 border border-soft-brown/10 flex flex-col items-center justify-between">
-            <div class="w-full h-36 bg-pastel-peach rounded-xl overflow-hidden"><img id="img-hero" alt="" class="w-full h-full object-cover"></div>
+            <div class="w-full h-36 bg-pastel-yellow rounded-xl overflow-hidden"><img id="img-hero" alt="" class="w-full h-full object-cover"></div>
             <p data-edit="heroCaption" class="font-handwritten text-xs text-center font-bold">~ Miori Daily Collection ~</p>
           </div>
         </div>
@@ -129,7 +131,7 @@ input[type=color].inp{height:40px;padding:2px}
         <button class="admin-only ebtn ebtn-l absolute top-5 right-5 z-20" onclick="changeImage('bannerReviews')"><i class="fa-solid fa-camera"></i> เปลี่ยนแบนเนอร์</button>
       </div>
     </div>
-    <div class="bg-[var(--color-revbox)] px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border-2 border-dashed custom-border-dashed shadow-scrapbook flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 transition-colors">
+    <div class="bg-[var(--color-revbox)] px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border-2 border-dashed custom-border-dashed shadow-scrapbook flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 transition-colors" style="background-color: var(--color-revbox);">
       <div class="text-center sm:text-left min-w-0">
         <span class="inline-flex items-center gap-1 text-[10px] font-bold bg-soft-blush text-blush-dark px-2 py-0.5 rounded-full"><i class="fa-solid fa-heart"></i><span data-edit="revTag">Customer Love Notes</span></span> <button class="admin-only ebtn" title="แก้ไขกล่องรีวิว" onclick="editSection('reviewsHead')"><i class="fa-solid fa-pen"></i></button>
         <h2 data-edit="revTitle" class="font-handwritten text-base sm:text-xl font-bold leading-tight mt-1">กล่องบันทึกความประทับใจ</h2>
@@ -141,7 +143,10 @@ input[type=color].inp{height:40px;padding:2px}
           <span id="dynamic-rev-score" class="font-handwritten text-base font-bold">4.95</span>
           <span id="dynamic-rev-count" class="text-[10px] text-muted-brown">จาก 250+ รีวิว</span>
         </div>
-        <button onclick="openReviewModal()" class="px-3.5 py-2 bg-blush-dark hover:bg-soft-brown text-white text-xs font-handwritten font-bold rounded-xl shadow-scrapbook flex items-center gap-1.5"><i class="fa-solid fa-pen"></i><span data-edit="revBtn">เขียนรีวิวให้น้องหน่อยนะ</span></button>
+        <!-- ปุ่มเขียนรีวิว ซ่อนอัตโนมัติเมื่อเป็นแอดมิน เพื่อป้องกันการโกงรีวิว -->
+        <div id="review-btn-container">
+          <button onclick="openReviewModal()" class="px-3.5 py-2 bg-blush-dark hover:bg-soft-brown text-white text-xs font-handwritten font-bold rounded-xl shadow-scrapbook flex items-center gap-1.5"><i class="fa-solid fa-pen"></i><span data-edit="revBtn">เขียนรีวิวให้น้องหน่อยนะ</span></button>
+        </div>
       </div>
     </div>
     <div id="reviews-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2"></div>
@@ -163,7 +168,7 @@ input[type=color].inp{height:40px;padding:2px}
     </div>
     
     <div class="flex justify-between items-center px-2">
-      <h3 class="font-handwritten text-xl font-bold flex items-center gap-2"><i class="fa-solid id-card fa-address-book text-blush-dark"></i> ช่องทางการติดต่อ</h3>
+      <h3 class="font-handwritten text-xl font-bold flex items-center gap-2"><i class="fa-solid fa-address-book text-blush-dark"></i> ช่องทางการติดต่อ</h3>
       <button class="admin-only ebtn ebtn-l" onclick="editContactList()"><i class="fa-solid fa-plus"></i> จัดการช่องทางติดต่อ</button>
     </div>
 
@@ -176,7 +181,7 @@ input[type=color].inp{height:40px;padding:2px}
   <button class="admin-only ebtn ebtn-l mx-auto" onclick="editSection('footer')"><i class="fa-solid fa-pen"></i> แก้ไขท้ายเว็บ</button>
 </footer>
 <!-- Admin floating bar -->
-<div id="admin-bar" class="admin-only fixed bottom-4 left-1/2 -translate-x-1/2 z-40 items-center justify-center gap-2 flex-wrap bg-soft-brown text-white text-[11px] px-3 py-2 rounded-2xl shadow-soft-float max-w-[95vw]">
+<div id="admin-bar" class="admin-only fixed bottom-4 left-1/2 -translate-x-1/2 z-40 items-center justify-center gap-2 flex-wrap bg-soft-brown text-white text-[11px] px-3 py-2 rounded-2xl shadow-soft-float max-w-[95vw]" style="background-color: var(--color-text);">
   <span><i class="fa-solid fa-pen-to-square"></i> โหมดแก้ไข: กดปุ่มดินสอตรงจุดที่ต้องการแก้</span>
   <button onclick="editTheme()" class="px-2.5 py-1 bg-white/20 hover:bg-white/30 rounded-xl font-bold">🎨 ธีมสี</button>
   <button onclick="resetTheme()" class="px-2.5 py-1 bg-white/20 hover:bg-white/30 rounded-xl font-bold">↺ รีเซ็ตสี</button>
@@ -229,15 +234,15 @@ input[type=color].inp{height:40px;padding:2px}
     </form>
   </div>
 </div>
-<div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 -translate-y-6 opacity-0 z-[60] bg-soft-brown text-white px-4 py-2.5 rounded-2xl shadow-soft-float text-xs font-bold transition-all duration-300 pointer-events-none border-2 border-soft-blush"><span id="toast-msg"></span></div>
+<div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 -translate-y-6 opacity-0 z-[60] bg-soft-brown text-white px-4 py-2.5 rounded-2xl shadow-soft-float text-xs font-bold transition-all duration-300 pointer-events-none border-2 border-soft-blush" style="background-color: var(--color-text);"><span id="toast-msg"></span></div>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
 const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){showToast('⚠️ พื้นที่เก็บข้อมูลเต็ม ลองใช้รูปที่เล็กลง')}};
-const PLACE='https://placehold.co/400x400/F7E7E6/65524D?text=Miori+Item';
+const PLACE='https://placehold.co/400x400/FFE4E9/5C4040?text=Miori+Item';
 const DEF_IMG={reviews:'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1122&q=80',hero:'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80'};
-const DEF_THEME={bg:'#FAF6F0',card:'#FFFDF9',primary:'#E29792',blush:'#F7E7E6',text:'#65524D',border:'#E29792',ctrl:'#FCF4DD',revbox:'#FFFDF9'};
+const DEF_THEME={bg:'#FFF9FB',card:'#FFFFFF',primary:'#FF7096',blush:'#FFE4E9',text:'#5C4040',border:'#FFB6C1',ctrl:'#FFE4E9',revbox:'#FFFFFF'};
 const DEF_MUSIC={title:'Cozy Lofi BGM',url:'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3'};
 const DEF_CONTACTS=[
   {id:'fb',name:'Facebook Page',handle:'@miori.studio.official',tag:'ทักแชท',url:'https://facebook.com',icon:'fa-brands fa-facebook-f',color:'bg-blue-50 text-blue-500 border-blue-200'},
@@ -247,10 +252,10 @@ const DEF_CONTACTS=[
 const DEF_CATS=[{id:'decor',name:'ของแต่งบ้าน & ห้องนอน'},{id:'stationery',name:'เครื่องเขียน & สมุดโน้ต'},{id:'candle',name:'เทียนหอม & อโรม่า'}];
 const B='สั่งซื้อผ่าน LINE / Inbox';
 const DEF_PRODUCTS=[
-{id:1,name:'โคมไฟตั้งโต๊ะดอกทิวลิปอบอุ่น Tulip Glow',category:'decor',price:390,rating:5,badge:'Popular',btnText:B,btnLink:'https://line.me',img:'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=500&q=80',desc:'โคมไฟตั้งโต๊ะทำจากเซรามิกละมุนสีครีมอุ่น ปรับแสงไฟวอร์มไลท์ได้ 3 ระดับ เพิ่มความอบอุ่นให้ห้องนอน'},
-{id:2,name:'สมุดแพลนเนอร์สไตล์ญี่ปุ่น Pastel Journal',category:'stationery',price:240,rating:4.9,badge:'Handmade',btnText:B,btnLink:'https://line.me',img:'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=500&q=80',desc:'แพลนเนอร์เปิดกางได้ 180 องศา กระดาษถนอมสายตาอย่างดี พร้อมสติ๊กเกอร์ไดคัทตกแต่งในเล่ม'},
-{id:3,name:'เทียนหอมไขถั่วเหลือง กลิ่น Cozy Bakery',category:'candle',price:290,rating:5,badge:'Best Aroma',btnText:B,btnLink:'https://line.me',img:'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=500&q=80',desc:'เทียนหอมออร์แกนิกกลิ่นขนมปังอบใหม่และวนิลาอ่อนๆ ให้ความรู้สึกผ่อนคลายเหมือนอยู่คาเฟ่อบอุ่น'},
-{id:4,name:'แก้วเซรามิกปั้นมือ ลายหมีน้อย Bear Cup',category:'decor',price:320,rating:4.8,badge:'Cutie Item',btnText:B,btnLink:'https://line.me',img:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80',desc:'แก้วกาแฟทำมือทรงหน้าหมี คาดจานรองเข้าเซต เข้าไมโครเวฟได้ จิบกาแฟยามเช้าอย่างมีสไตล์'}];
+{id:1,name:'โคมไฟตั้งโต๊ะดอกทิวลิปอบอุ่น Tulip Glow',category:'decor',price:390,rating:5,badge:'Popular',btnText:B,btnLink:'https://line.me',img:'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=500&q=80',desc:'โคมไฟตั้งโต๊ะทำจากเซรามิกละมุนสีครีมอุ่น ปรับแสงไฟวอร์มไลท์ได้ 3 ระดับ เพิ่มความอบอุ่นให้ห้องนอน', viewBtnText:'ดูน้อง ★'},
+{id:2,name:'สมุดแพลนเนอร์สไตล์ญี่ปุ่น Pastel Journal',category:'stationery',price:240,rating:4.9,badge:'Handmade',btnText:B,btnLink:'https://line.me',img:'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=500&q=80',desc:'แพลนเนอร์เปิดกางได้ 180 องศา กระดาษถนอมสายตาอย่างดี พร้อมสติ๊กเกอร์ไดคัทตกแต่งในเล่ม', viewBtnText:'ดูน้อง ★'},
+{id:3,name:'เทียนหอมไขถั่วเหลือง กลิ่น Cozy Bakery',category:'candle',price:290,rating:5,badge:'Best Aroma',btnText:B,btnLink:'https://line.me',img:'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=500&q=80',desc:'เทียนหอมออร์แกนิกกลิ่นขนมปังอบใหม่และวนิลาอ่อนๆ ให้ความรู้สึกผ่อนคลายเหมือนอยู่คาเฟ่อบอุ่น', viewBtnText:'ดูน้อง ★'},
+{id:4,name:'แก้วเซรามิกปั้นมือ ลายหมีน้อย Bear Cup',category:'decor',price:320,rating:4.8,badge:'Cutie Item',btnText:B,btnLink:'https://line.me',img:'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=500&q=80',desc:'แก้วกาแฟทำมือทรงหน้าหมี คาดจานรองเข้าเซต เข้าไมโครเวฟได้ จิบกาแฟยามเช้าอย่างมีสไตล์', viewBtnText:'ดูน้อง ★'}];
 const DEF_REVIEWS=[
 {id:1,name:'คุณแนนซี',rating:5,date:'25 ต.ค. 2026',comment:'แกะกล่องออกมาประทับใจมากค่ะ! มีเทปวาชิแปะกล่องน่ารักมาก โคมไฟทิวลิปสว่างละมุนสุดๆ',color:'bg-pastel-yellow',rotation:'rotate-[-2deg]'},
 {id:2,name:'คุณคิณ',rating:5,date:'22 ต.ค. 2026',comment:'เทียนหอมกลิ่นหอมฟุ้งทั่วห้องเลยครับ กลิ่นเหมือนขนมปังอบจริงๆ ไว้จะกลับมาอุดหนุนใหม่แน่นอน',color:'bg-soft-blush',rotation:'rotate-[2deg]'}];
@@ -276,7 +281,7 @@ function applyImages(){
   b.classList.toggle('hidden',!has);['bg-white/70','p-4','rounded-2xl'].forEach(c=>o.toggle(c,has));
   ['site','contact'].forEach(p=>{const h=!!images.logo;if(h)$(p+'-logo-img').src=images.logo;$(p+'-logo-img').classList.toggle('hidden',!h);$(p+'-logo-svg').classList.toggle('hidden',h);});
 }
-function setEditing(on){editing=on;document.body.classList.toggle('editing',on);$('gear').classList.toggle('bg-soft-blush',on);renderContacts();}
+function setEditing(on){editing=on;document.body.classList.toggle('editing',on);$('gear').classList.toggle('bg-soft-blush',on);renderContacts();renderProducts();}
 
 let formImgs={},formDel=null;
 const getText=k=>texts[k]!==undefined?texts[k]:(document.querySelector('[data-edit="'+k+'"]')?.dataset.def??'');
@@ -316,14 +321,14 @@ function editSection(n){
 function renderContacts(){
   $('contact-cards-container').innerHTML=contacts.map(c=>`
     <div class="relative group">
-      <a href="${esc(c.url)}" target="_blank" class="flex items-center gap-4 bg-cream-card px-4 py-3 rounded-2xl border-2 border-soft-blush shadow-scrapbook hover:border-blush-dark tilt-hover">
-        <div class="w-12 h-12 rounded-2xl ${esc(c.color)} border flex items-center justify-center text-lg shrink-0"><i class="${esc(c.icon)}"></i></div>
-        <div class="min-w-0 flex-1"><h4 class="font-bold text-sm sm:text-base">${esc(c.name)}</h4><p class="text-xs text-muted-brown truncate">${esc(c.handle)}</p></div>
-        <span class="text-xs font-bold text-blush-dark bg-soft-blush px-3 py-1 rounded-full whitespace-nowrap">${esc(c.tag)}</span>
+      <a href="${esc(c.url)}" target="_blank" class="flex items-center gap-5 bg-cream-card px-5 py-4 rounded-3xl border-2 border-soft-blush shadow-scrapbook hover:border-blush-dark tilt-hover">
+        <div class="w-14 h-14 rounded-2xl ${esc(c.color)} border flex items-center justify-center text-xl shrink-0"><i class="${esc(c.icon)}"></i></div>
+        <div class="min-w-0 flex-1"><h4 class="font-bold text-base sm:text-lg">${esc(c.name)}</h4><p class="text-xs sm:text-sm text-muted-brown truncate">${esc(c.handle)}</p></div>
+        <span class="text-xs font-bold text-blush-dark bg-soft-blush px-3.5 py-1.5 rounded-full whitespace-nowrap">${esc(c.tag)}</span>
       </a>
       <button class="admin-only absolute top-3 right-3 ebtn" title="แก้ไขช่องทางนี้" onclick="editSingleContact('${c.id}')"><i class="fa-solid fa-pen"></i></button>
     </div>
-  `).join('') + `<button class="admin-only w-full py-3 rounded-2xl border-2 border-dashed custom-border-dashed items-center justify-center gap-2 text-sm font-bold text-blush-dark bg-cream-card hover:bg-soft-blush" onclick="editSingleContact()"><i class="fa-solid fa-plus"></i> เพิ่มช่องทางติดต่อใหม่</button>`;
+  `).join('') + `<button class="admin-only w-full py-3.5 rounded-3xl border-2 border-dashed custom-border-dashed items-center justify-center gap-2 text-sm font-bold text-blush-dark bg-cream-card hover:bg-soft-blush" onclick="editSingleContact()"><i class="fa-solid fa-plus"></i> เพิ่มช่องทางติดต่อใหม่</button>`;
 }
 
 function editSingleContact(id){
@@ -424,12 +429,12 @@ function renderProducts(){
     </div>
     <div class="mt-3 pt-2 border-t border-dashed border-soft-blush flex items-center justify-between">
       <span class="font-handwritten font-bold text-base">฿${esc(p.price)}</span>
-      <button onclick="openProductModal(${p.id})" class="px-3 py-1.5 bg-soft-blush hover:bg-blush-dark hover:text-white text-xs font-handwritten font-bold rounded-xl">ดูน้อง ★</button>
+      <button onclick="openProductModal(${p.id})" class="px-3 py-1.5 bg-soft-blush hover:bg-blush-dark hover:text-white text-xs font-handwritten font-bold rounded-xl">${esc(p.viewBtnText||'ดูน้อง ★')}</button>
     </div>
   </div>`).join('')+`<button class="admin-only min-h-[10rem] rounded-3xl border-2 border-dashed custom-border-dashed items-center justify-center gap-2 text-sm font-bold text-blush-dark bg-cream-card hover:bg-soft-blush" onclick="editProduct()"><i class="fa-solid fa-plus"></i> เพิ่มสินค้า</button>`;
 }
 function editProduct(id){
-  const p=id?products.find(x=>x.id==id):{category:categories[0]?.id,btnText:B,btnLink:'https://line.me'};
+  const p=id?products.find(x=>x.id==id):{category:categories[0]?.id,btnText:B,btnLink:'https://line.me',viewBtnText:'ดูน้อง ★'};
   openForm(id?'✎ แก้ไขสินค้า':'➕ เพิ่มสินค้าใหม่',[
     {k:'img',label:'รูปสินค้า',type:'image',maxW:560,value:id?p.img:''},
     {k:'name',label:'ชื่อสินค้า',value:p.name||''},
@@ -437,6 +442,7 @@ function editProduct(id){
     {k:'price',label:'ราคา (บาท)',type:'number',value:p.price??''},
     {k:'badge',label:'ข้อความ Badge',value:p.badge||''},
     {k:'desc',label:'คำอธิบายสินค้า',type:'textarea',value:p.desc||''},
+    {k:'viewBtnText',label:'ข้อความปุ่มดูสินค้า (เช่น ดูน้อง ★)',value:p.viewBtnText||'ดูน้อง ★'},
     {k:'btnText',label:'ชื่อปุ่มสั่งซื้อ',value:p.btnText||''},
     {k:'btnLink',label:'ลิงก์ปุ่มสั่งซื้อ',value:p.btnLink||''}],v=>{
     v.price=parseFloat(v.price)||0;if(!v.img)delete v.img;
