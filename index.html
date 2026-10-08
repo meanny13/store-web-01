@@ -203,7 +203,6 @@ input[type=color].inp{height:40px;padding:2px}
   <p data-edit="footer2">© 2026 Miori Studio. All Rights Reserved.</p>
   <button class="admin-only ebtn ebtn-l mx-auto" onclick="editSection('footer')"><i class="fa-solid fa-pen"></i> แก้ไขท้ายเว็บ</button>
 </footer>
-
 <div id="admin-menu-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-[2rem] max-w-sm w-full p-6 relative border-2 border-soft-blush shadow-soft-float space-y-3">
     <button onclick="$('admin-menu-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs flex items-center justify-center">✕</button>
@@ -221,7 +220,6 @@ input[type=color].inp{height:40px;padding:2px}
     </div>
   </div>
 </div>
-
 <div id="admin-login-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-[2rem] max-w-sm w-full p-6 relative border-2 border-soft-blush shadow-soft-float space-y-4">
     <button onclick="$('admin-login-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs flex items-center justify-center">✕</button>
@@ -286,6 +284,27 @@ input[type=color].inp{height:40px;padding:2px}
   </div>
 </div>
 <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 -translate-y-6 opacity-0 z-[60] bg-soft-brown text-white px-4 py-2.5 rounded-2xl shadow-soft-float text-xs font-bold transition-all duration-300 pointer-events-none border-2 border-soft-blush" style="background-color: var(--color-text);"><span id="toast-msg"></span></div>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyDAhaPZO-Dwyb01-2vcIdboMEI-qBbdFi0",
+    authDomain: "miori-store-web.firebaseapp.com",
+    databaseURL: "https://miori-store-web-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "miori-store-web",
+    storageBucket: "miori-store-web.firebasestorage.app",
+    messagingSenderId: "763998873956",
+    appId: "1:763998873956:web:302e2e965a23693e607271",
+    measurementId: "G-BBP7SHYR2X"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 <script>
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -355,8 +374,8 @@ function pickFormImage(k,maxW,png){
 function closeForm(){$('form-modal').classList.add('hidden');}
 function formDelete(){if(confirm('ลบรายการนี้ใช่หรือไม่?')){if(formDel)formDel();closeForm();}}
 const SECTIONS={
- header:['✎ แก้ไขส่วนหัวเว็บ',[['siteTitle','ชื่อร้าน'],['siteJp','ข้อความข้างชื่อร้าน'],['slogan','สโลแกน'],['navStore','เมนู: หน้าร้าน'],['navReviews','เมนู: รีวิว'],['navContact','เมนู: ติดต่อเรา']],[['logo','โลโก้ร้าน (วงกลม)',300,1]]],
- banner:['✎ แก้ไขแบนเนอร์หน้าร้าน',[['bannerBadge','ป้ายเล็กบนหัวข้อ'],['bannerT1','หัวข้อบรรทัดที่ 1'],['bannerT2','หัวข้อบรรทัดที่ 2'],['bannerDesc','คำอธิบาย','t'],['bannerBtn','ข้อความปุ่ม'],['bannerShip','ข้อความจัดส่ง'],['heroCaption','คำใต้รูปการ์ด']],[['bannerStore','รูปแบนเนอร์ (1122x495)',1122],['hero','รูปการ์ดข้างแบนเนอร์',500]]],
+ header:['✎ แก้ไขส่วนหัวเว็บ',[['siteTitle','ชื่อร้าน'],['siteJp','ข้อความข้างชื่อร้าน'],['slogan','สโลแกน'],['navStore','เมนู: หน้าร้าน'],['navReviews','เมนู: รีวิว'],['navContact','เมนู: ติดต่อเรา']],[[['logo','โลโก้ร้าน (วงกลม)',300,1]]],
+ banner:['✎ แก้ไขแบนเนอร์หน้าร้าน',[['bannerBadge','ป้ายเล็กบนหัวข้อ'],['bannerT1','หัวข้อบรรทัดที่ 1'],['bannerT2','หัวข้อบรรทัดที่ 2'],['bannerDesc','คำอธิบาย','t'],['bannerBtn','ข้อความปุ่ม'],['bannerShip','ข้อความจัดส่ง'],['heroCaption','คำใต้รูปการ์ด']],[[['bannerStore','รูปแบนเนอร์ (1122x495)',1122],['hero','รูปการ์ดข้างแบนเนอร์',500]]],
  reviewsHead:['✎ แก้ไขกล่องรีวิว',[['revTag','ป้ายเล็ก'],['revTitle','หัวข้อ'],['revSub','คำอธิบาย','t'],['revBtn','ข้อความปุ่มเขียนรีวิว']],[]],
  contactHead:['✎ แก้ไขหัวข้อหน้าติดต่อ',[['siteTitle','ชื่อร้าน'],['contactSlogan','สโลแกน','t']],[]],
  footer:['✎ แก้ไขท้ายเว็บ',[['footer1','บรรทัดที่ 1'],['footer2','บรรทัดที่ 2']],[]]
@@ -467,47 +486,21 @@ function renderCategoryChips(){
   const chip=(id,name)=>`<button onclick="filterCategory('${id}')" class="${currentCategory===id?'bg-soft-blush font-bold border-blush-dark':'bg-white'} px-4 py-2 rounded-2xl text-xs sm:text-sm border-2 border-soft-blush shadow-scrapbook hover:bg-soft-blush whitespace-nowrap">${esc(name)}</button>`;
   $('category-chips-container').innerHTML=chip('all','ทั้งหมด (All)')+categories.map(c=>chip(c.id,c.name)).join('');
 }
-
-/* ปรับปรุงใหม่: ฟังก์ชันแก้ไขหมวดหมู่แบบใช้งานง่าย เป็นรายการและปุ่มกดจัดการ */
 function editCategories(){
   const fields = [
     {k:'catTitle', label:'หัวข้อส่วนหมวดหมู่', value:getText('catTitle')},
     {k:'catSub', label:'คำอธิบายใต้หัวข้อ', value:getText('catSub')}
   ];
   
-  let listHtml = `
-    <div class="space-y-3 pt-2">
-      <label class="block text-xs font-bold">รายการหมวดหมู่ปัจจุบัน</label>
-      <div id="cat-manage-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
-        ${categories.map((c, idx) => `
-          <div class="flex items-center gap-2 bg-warm-cream p-2 rounded-2xl border border-soft-blush">
-            <input type="text" id="cat-name-${c.id}" value="${esc(c.name)}" class="inp flex-1 py-1.5 text-xs bg-white">
-            <button type="button" onclick="deleteCategoryItem('${c.id}')" class="px-2.5 py-1.5 bg-red-100 text-red-600 rounded-xl text-xs font-bold hover:bg-red-200 shrink-0" title="ลบหมวดนี้"><i class="fa-solid fa-trash"></i></button>
-          </div>
-        `).join('')}
-      </div>
-      <div class="pt-2 border-t border-dashed border-soft-blush">
-        <label class="block text-xs font-bold mb-1">➕ เพิ่มหมวดหมู่ใหม่</label>
-        <div class="flex items-center gap-2">
-          <input type="text" id="new-cat-input" placeholder="พิมพ์ชื่อหมวดหมู่ใหม่..." class="inp py-1.5 text-xs bg-white">
-          <button type="button" onclick="addNewCategoryInline()" class="px-3.5 py-1.5 bg-blush-dark text-white rounded-xl text-xs font-bold shrink-0 hover:bg-soft-brown">เพิ่ม</button>
-        </div>
-      </div>
-    </div>
-  `;
-
   openForm('✎ จัดการหมวดหมู่สินค้า', fields, v => {
     texts.catTitle = v.catTitle;
     texts.catSub = v.catSub;
     
-    // อัปเดตชื่อหมวดหมู่เดิมตามช่อง input รายการ
     categories = categories.map(c => {
       const inputEl = $('cat-name-' + c.id);
       return inputEl ? {...c, name: inputEl.value.trim()} : c;
     }).filter(c => c.name);
-
     if(currentCategory !== 'all' && !categories.some(c => c.id === currentCategory)) currentCategory = 'all';
-
     save('miori_texts', texts);
     save('miori_categories', categories);
     applyTexts();
@@ -515,23 +508,44 @@ function editCategories(){
     renderProducts();
     showToast('✨ บันทึกหมวดหมู่แล้ว');
   });
-
-  // แทรกรายการจัดการหมวดหมู่ลงไปในฟอร์ม
   setTimeout(() => {
     const fieldsContainer = $('form-fields');
-    const div = document.createElement('div');
-    div.innerHTML = listHtml;
-    fieldsContainer.appendChild(div);
+    if(fieldsContainer && !document.getElementById('cat-manage-list')){
+      const div = document.createElement('div');
+      div.id = 'cat-manage-wrapper';
+      div.innerHTML = `
+        <div class="space-y-3 pt-2 border-t border-dashed border-soft-blush mt-2">
+          <label class="block text-xs font-bold">รายการหมวดหมู่ปัจจุบัน</label>
+          <div id="cat-manage-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+            ${categories.map((c) => `
+              <div class="flex items-center gap-2 bg-warm-cream p-2 rounded-2xl border border-soft-blush">
+                <input type="text" id="cat-name-${c.id}" value="${esc(c.name)}" class="inp flex-1 py-1.5 text-xs bg-white">
+                <button type="button" onclick="deleteCategoryItem('${c.id}')" class="px-2.5 py-1.5 bg-red-100 text-red-600 rounded-xl text-xs font-bold hover:bg-red-200 shrink-0" title="ลบหมวดนี้"><i class="fa-solid fa-trash"></i></button>
+              </div>
+            `).join('')}
+          </div>
+          <div class="pt-2 border-t border-dashed border-soft-blush">
+            <label class="block text-xs font-bold mb-1">➕ เพิ่มหมวดหมู่ใหม่</label>
+            <div class="flex items-center gap-2">
+              <input type="text" id="new-cat-input" placeholder="พิมพ์ชื่อหมวดหมู่ใหม่..." class="inp py-1.5 text-xs bg-white">
+              <button type="button" onclick="addNewCategoryInline()" class="px-3.5 py-1.5 bg-blush-dark text-white rounded-xl text-xs font-bold shrink-0 hover:bg-soft-brown">เพิ่ม</button>
+            </div>
+          </div>
+        </div>
+      `;
+      fieldsContainer.appendChild(div);
+    }
   }, 50);
 }
-
 function deleteCategoryItem(id){
   if(categories.length <= 1){
     showToast('⚠️ ต้องมีหมวดหมู่อย่างน้อย 1 หมวดหมู่');
     return;
   }
-  categories = categories.filter(c => c.id !== id);
-  // เรนเดอร์รายการใน Modal ใหม่ทันที
+  categories = categories.map(c => {
+    const inputEl = $('cat-name-' + c.id);
+    return inputEl ? {...c, name: inputEl.value.trim()} : c;
+  }).filter(c => c.id !== id);
   const listEl = $('cat-manage-list');
   if(listEl){
     listEl.innerHTML = categories.map(c => `
@@ -543,11 +557,15 @@ function deleteCategoryItem(id){
   }
   showToast('🗑️ ลบหมวดหมู่แล้ว (กดบันทึกเพื่อยืนยัน)');
 }
-
 function addNewCategoryInline(){
   const inp = $('new-cat-input');
   if(!inp || !inp.value.trim()) return;
   const newName = inp.value.trim();
+  
+  categories = categories.map(c => {
+    const inputEl = $('cat-name-' + c.id);
+    return inputEl ? {...c, name: inputEl.value.trim()} : c;
+  });
   categories.push({id: 'c' + Date.now(), name: newName});
   inp.value = '';
   
@@ -562,7 +580,6 @@ function addNewCategoryInline(){
   }
   showToast('✨ เพิ่มหมวดหมู่แล้ว (กดบันทึกเพื่อยืนยัน)');
 }
-
 function filterCategory(c){currentCategory=c;renderCategoryChips();renderProducts();}
 function renderProducts(){
   const searchTxt=$('product-search-input')?.value.toLowerCase().trim()||'';
@@ -605,7 +622,7 @@ function editProduct(id){
     if(formImgs.img)v.img=formImgs.img; else if(!id)v.img=PLACE; else v.img=p.img;
     if(id)Object.assign(p,v);else products.unshift({id:Date.now(),rating:5,...v});
     save('miori_products',products);renderProducts();showToast('✨ บันทึกสินค้าแล้ว');},
-    id?()=>{products=products.products||products.filter(x=>x.id!=id);save('miori_products',products);renderProducts();showToast('🗑️ ลบสินค้าแล้ว');}:null);
+    id?()=>{products=products.filter(x=>x.id!=id);save('miori_products',products);renderProducts();showToast('🗑️ ลบสินค้าแล้ว');}:null);
 }
 function openProductModal(id){
   const p=products.find(x=>x.id===id);if(!p)return;
@@ -634,7 +651,7 @@ function updateReviewStats(){
 function renderReviews(){
   $('reviews-container').innerHTML=reviewsData.map((r,i)=>`
   <div class="${r.color||'bg-cream-card'} p-6 rounded-3xl border-2 border-soft-blush shadow-scrapbook relative ${r.rotation||''} space-y-3">
-    <div class="washi-tape ${i%2===0?'-top-2.5 left-8 rotate-[-3deg]':'-top-2.5 right-8 rotate-[3deg]'}"></div>
+    <div class="washi-tape ${i%2===0?'-top-2.5 left-8 rotate-[-3deg]':'-top-2.5 right-8 rotate-[3deg]}"></div>
     <div class="flex justify-between items-start">
       <div><h4 class="font-bold text-base">${esc(r.name)}</h4><p class="text-[10px] text-muted-brown">${esc(r.date)}</p></div>
       <div class="text-yellow-400 text-xs">${'<i class="fa-solid fa-star"></i>'.repeat(r.rating)}</div>
