@@ -204,7 +204,6 @@ input[type=color].inp{height:40px;padding:2px}
   <button class="admin-only ebtn ebtn-l mx-auto" onclick="editSection('footer')"><i class="fa-solid fa-pen"></i> แก้ไขท้ายเว็บ</button>
 </footer>
 
-<!-- เมนูจัดการหลังบ้าน (ย้ายมาอยู่ใน Modal/Pop-up เมื่อกดปุ่มเฟือง แทนการใช้แถบติดหน้าจอ) -->
 <div id="admin-menu-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-[2rem] max-w-sm w-full p-6 relative border-2 border-soft-blush shadow-soft-float space-y-3">
     <button onclick="$('admin-menu-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs flex items-center justify-center">✕</button>
@@ -424,7 +423,6 @@ function editMusic(){
 }
 function handleGear(){
   if(loggedIn){
-    // เปิด Modal เมนูจัดการหลังบ้านแทนการใช้แถบลอยติดหน้าจอ
     $('admin-menu-modal').classList.remove('hidden');
   } else {
     $('admin-login-modal').classList.remove('hidden');
@@ -469,18 +467,102 @@ function renderCategoryChips(){
   const chip=(id,name)=>`<button onclick="filterCategory('${id}')" class="${currentCategory===id?'bg-soft-blush font-bold border-blush-dark':'bg-white'} px-4 py-2 rounded-2xl text-xs sm:text-sm border-2 border-soft-blush shadow-scrapbook hover:bg-soft-blush whitespace-nowrap">${esc(name)}</button>`;
   $('category-chips-container').innerHTML=chip('all','ทั้งหมด (All)')+categories.map(c=>chip(c.id,c.name)).join('');
 }
+
+/* ปรับปรุงใหม่: ฟังก์ชันแก้ไขหมวดหมู่แบบใช้งานง่าย เป็นรายการและปุ่มกดจัดการ */
 function editCategories(){
-  openForm('✎ แก้ไขหมวดหมู่สินค้า',[
-    {k:'catTitle',label:'หัวข้อส่วนหมวดหมู่',value:getText('catTitle')},
-    {k:'catSub',label:'คำอธิบายใต้หัวข้อ',value:getText('catSub')},
-    ...categories.map(c=>({k:'cat_'+c.id,label:'ชื่อหมวดหมู่ (เว้นว่าง = ลบหมวดนี้)',value:c.name})),
-    {k:'newcat',label:'เพิ่มหมวดหมู่ใหม่ (พิมพ์ชื่อ)',value:''}],v=>{
-    texts.catTitle=v.catTitle;texts.catSub=v.catSub;
-    categories=categories.map(c=>({...c,name:v['cat_'+c.id].trim()})).filter(c=>c.name);
-    if(v.newcat.trim())categories.push({id:'c'+Date.now(),name:v.newcat.trim()});
-    if(currentCategory!=='all'&&!categories.some(c=>c.id===currentCategory))currentCategory='all';
-    save('miori_texts',texts);save('miori_categories',categories);applyTexts();renderCategoryChips();renderProducts();showToast('✨ บันทึกหมวดหมู่แล้ว');});
+  const fields = [
+    {k:'catTitle', label:'หัวข้อส่วนหมวดหมู่', value:getText('catTitle')},
+    {k:'catSub', label:'คำอธิบายใต้หัวข้อ', value:getText('catSub')}
+  ];
+  
+  let listHtml = `
+    <div class="space-y-3 pt-2">
+      <label class="block text-xs font-bold">รายการหมวดหมู่ปัจจุบัน</label>
+      <div id="cat-manage-list" class="space-y-2 max-h-48 overflow-y-auto pr-1">
+        ${categories.map((c, idx) => `
+          <div class="flex items-center gap-2 bg-warm-cream p-2 rounded-2xl border border-soft-blush">
+            <input type="text" id="cat-name-${c.id}" value="${esc(c.name)}" class="inp flex-1 py-1.5 text-xs bg-white">
+            <button type="button" onclick="deleteCategoryItem('${c.id}')" class="px-2.5 py-1.5 bg-red-100 text-red-600 rounded-xl text-xs font-bold hover:bg-red-200 shrink-0" title="ลบหมวดนี้"><i class="fa-solid fa-trash"></i></button>
+          </div>
+        `).join('')}
+      </div>
+      <div class="pt-2 border-t border-dashed border-soft-blush">
+        <label class="block text-xs font-bold mb-1">➕ เพิ่มหมวดหมู่ใหม่</label>
+        <div class="flex items-center gap-2">
+          <input type="text" id="new-cat-input" placeholder="พิมพ์ชื่อหมวดหมู่ใหม่..." class="inp py-1.5 text-xs bg-white">
+          <button type="button" onclick="addNewCategoryInline()" class="px-3.5 py-1.5 bg-blush-dark text-white rounded-xl text-xs font-bold shrink-0 hover:bg-soft-brown">เพิ่ม</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  openForm('✎ จัดการหมวดหมู่สินค้า', fields, v => {
+    texts.catTitle = v.catTitle;
+    texts.catSub = v.catSub;
+    
+    // อัปเดตชื่อหมวดหมู่เดิมตามช่อง input รายการ
+    categories = categories.map(c => {
+      const inputEl = $('cat-name-' + c.id);
+      return inputEl ? {...c, name: inputEl.value.trim()} : c;
+    }).filter(c => c.name);
+
+    if(currentCategory !== 'all' && !categories.some(c => c.id === currentCategory)) currentCategory = 'all';
+
+    save('miori_texts', texts);
+    save('miori_categories', categories);
+    applyTexts();
+    renderCategoryChips();
+    renderProducts();
+    showToast('✨ บันทึกหมวดหมู่แล้ว');
+  });
+
+  // แทรกรายการจัดการหมวดหมู่ลงไปในฟอร์ม
+  setTimeout(() => {
+    const fieldsContainer = $('form-fields');
+    const div = document.createElement('div');
+    div.innerHTML = listHtml;
+    fieldsContainer.appendChild(div);
+  }, 50);
 }
+
+function deleteCategoryItem(id){
+  if(categories.length <= 1){
+    showToast('⚠️ ต้องมีหมวดหมู่อย่างน้อย 1 หมวดหมู่');
+    return;
+  }
+  categories = categories.filter(c => c.id !== id);
+  // เรนเดอร์รายการใน Modal ใหม่ทันที
+  const listEl = $('cat-manage-list');
+  if(listEl){
+    listEl.innerHTML = categories.map(c => `
+      <div class="flex items-center gap-2 bg-warm-cream p-2 rounded-2xl border border-soft-blush">
+        <input type="text" id="cat-name-${c.id}" value="${esc(c.name)}" class="inp flex-1 py-1.5 text-xs bg-white">
+        <button type="button" onclick="deleteCategoryItem('${c.id}')" class="px-2.5 py-1.5 bg-red-100 text-red-600 rounded-xl text-xs font-bold hover:bg-red-200 shrink-0" title="ลบหมวดนี้"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    `).join('');
+  }
+  showToast('🗑️ ลบหมวดหมู่แล้ว (กดบันทึกเพื่อยืนยัน)');
+}
+
+function addNewCategoryInline(){
+  const inp = $('new-cat-input');
+  if(!inp || !inp.value.trim()) return;
+  const newName = inp.value.trim();
+  categories.push({id: 'c' + Date.now(), name: newName});
+  inp.value = '';
+  
+  const listEl = $('cat-manage-list');
+  if(listEl){
+    listEl.innerHTML = categories.map(c => `
+      <div class="flex items-center gap-2 bg-warm-cream p-2 rounded-2xl border border-soft-blush">
+        <input type="text" id="cat-name-${c.id}" value="${esc(c.name)}" class="inp flex-1 py-1.5 text-xs bg-white">
+        <button type="button" onclick="deleteCategoryItem('${c.id}')" class="px-2.5 py-1.5 bg-red-100 text-red-600 rounded-xl text-xs font-bold hover:bg-red-200 shrink-0" title="ลบหมวดนี้"><i class="fa-solid fa-trash"></i></button>
+      </div>
+    `).join('');
+  }
+  showToast('✨ เพิ่มหมวดหมู่แล้ว (กดบันทึกเพื่อยืนยัน)');
+}
+
 function filterCategory(c){currentCategory=c;renderCategoryChips();renderProducts();}
 function renderProducts(){
   const searchTxt=$('product-search-input')?.value.toLowerCase().trim()||'';
@@ -523,7 +605,7 @@ function editProduct(id){
     if(formImgs.img)v.img=formImgs.img; else if(!id)v.img=PLACE; else v.img=p.img;
     if(id)Object.assign(p,v);else products.unshift({id:Date.now(),rating:5,...v});
     save('miori_products',products);renderProducts();showToast('✨ บันทึกสินค้าแล้ว');},
-    id?()=>{products=products.filter(x=>x.id!=id);save('miori_products',products);renderProducts();showToast('🗑️ ลบสินค้าแล้ว');}:null);
+    id?()=>{products=products.products||products.filter(x=>x.id!=id);save('miori_products',products);renderProducts();showToast('🗑️ ลบสินค้าแล้ว');}:null);
 }
 function openProductModal(id){
   const p=products.find(x=>x.id===id);if(!p)return;
