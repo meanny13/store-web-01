@@ -34,18 +34,14 @@ h1,h2,h3,h4,.font-handwritten{font-family:'Itim',cursive}
 .inp{width:100%;font-size:.8rem;padding:.6rem .9rem;border-radius:1rem;border:2px solid var(--color-blush);background:var(--color-bg);color:var(--color-text);outline:none}
 .inp:focus{border-color:var(--color-primary)}
 input[type=color].inp{height:40px;padding:2px}
-/* ===== Admin edit mode ===== */
 .admin-only{display:none!important}
 .editing .admin-only{display:inline-flex!important}
-/* ซ่อนปุ่มเขียนรีวิวเฉพาะตอนเป็นแอดมิน เพื่อป้องกันการโกงรีวิว */
 .editing #review-btn-container {display:none!important}
 [data-edit]{white-space:pre-line}
 .ebtn{width:1.75rem;height:1.75rem;border-radius:9999px;background:#fff;border:1.5px solid var(--color-primary);color:var(--color-text);font-size:.7rem;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,.12);cursor:pointer}
 .ebtn:hover{background:var(--color-blush)}
 .ebtn-l{width:auto;height:1.9rem;padding:0 .75rem;gap:.35rem;font-weight:700}
 .editing footer{padding-bottom:4.5rem}
-
-/* ปุ่มมินิมอลน่ารักสไตล์โฮมเมด */
 .btn-cute-minimal {
   display: inline-flex;
   align-items: center;
@@ -108,7 +104,6 @@ input[type=color].inp{height:40px;padding:2px}
 </header>
 <audio id="bgm-player" loop preload="none"></audio>
 <main class="max-w-6xl mx-auto px-4 py-6 flex-1 w-full">
-  <!-- ===== STORE ===== -->
   <section id="page-store" class="space-y-8">
     <div class="relative w-full mt-4">
       <div class="washi-tape -top-3 left-12 rotate-[-6deg]"></div>
@@ -145,7 +140,6 @@ input[type=color].inp{height:40px;padding:2px}
     </div>
     <div id="product-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6"></div>
   </section>
-  <!-- ===== REVIEWS ===== -->
   <section id="page-reviews" class="hidden space-y-8">
     <div class="relative w-full mt-4">
       <div class="washi-tape -top-3 left-10 rotate-[-4deg]"></div>
@@ -167,7 +161,6 @@ input[type=color].inp{height:40px;padding:2px}
           <span id="dynamic-rev-score" class="font-handwritten text-base font-bold">4.95</span>
           <span id="dynamic-rev-count" class="text-[10px] text-muted-brown">จาก 250+ รีวิว</span>
         </div>
-        <!-- ปุ่มเขียนรีวิว ซ่อนอัตโนมัติเมื่อเป็นแอดมิน เพื่อป้องกันการโกงรีวิว -->
         <div id="review-btn-container">
           <button onclick="openReviewModal()" class="px-3.5 py-2 bg-blush-dark hover:bg-soft-brown text-white text-xs font-handwritten font-bold rounded-xl shadow-scrapbook flex items-center gap-1.5"><i class="fa-solid fa-pen"></i><span data-edit="revBtn">เขียนรีวิวให้น้องหน่อยนะ</span></button>
         </div>
@@ -175,7 +168,6 @@ input[type=color].inp{height:40px;padding:2px}
     </div>
     <div id="reviews-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2"></div>
   </section>
-  <!-- ===== CONTACT ===== -->
   <section id="page-contact" class="hidden space-y-8 max-w-xl mx-auto">
     <div class="text-center space-y-3 py-2">
       <div class="relative inline-block">
@@ -190,7 +182,6 @@ input[type=color].inp{height:40px;padding:2px}
       <p data-edit="contactSlogan" class="text-xs text-muted-brown max-w-md mx-auto">" เติมเต็มมุมโปรดในบ้านด้วยของจุกจิกดีไซน์อบอุ่นใจ สไตล์โฮมเมด "</p>
       <button class="admin-only ebtn ebtn-l mx-auto" onclick="editSection('contactHead')"><i class="fa-solid fa-pen"></i> แก้ไขหัวข้อ</button>
     </div>
-    
     <div class="flex justify-between items-center px-2">
       <h3 class="font-handwritten text-xl font-bold flex items-center gap-2"><i class="fa-solid fa-address-book text-blush-dark"></i> ช่องทางการติดต่อ</h3>
       <button class="admin-only ebtn ebtn-l" onclick="editContactList()"><i class="fa-solid fa-plus"></i> จัดการช่องทางติดต่อ</button>
@@ -203,7 +194,6 @@ input[type=color].inp{height:40px;padding:2px}
   <p data-edit="footer2">© 2026 Miori Studio. All Rights Reserved.</p>
   <button class="admin-only ebtn ebtn-l mx-auto" onclick="editSection('footer')"><i class="fa-solid fa-pen"></i> แก้ไขท้ายเว็บ</button>
 </footer>
-<!-- Admin floating bar -->
 <div id="admin-bar" class="admin-only fixed bottom-4 left-1/2 -translate-x-1/2 z-40 items-center justify-center gap-2 flex-wrap bg-soft-brown text-white text-[11px] px-3 py-2 rounded-2xl shadow-soft-float max-w-[95vw]" style="background-color: var(--color-text);">
   <span><i class="fa-solid fa-pen-to-square"></i> โหมดแก้ไข: กดปุ่มดินสอตรงจุดที่ต้องการแก้</span>
   <button onclick="editTheme()" class="btn-cute-minimal">🎨 ธีมสี</button>
@@ -212,7 +202,6 @@ input[type=color].inp{height:40px;padding:2px}
   <button onclick="resetAll()" class="btn-cute-minimal">⚠️ รีเซ็ตทั้งหมด</button>
   <button onclick="adminLogout()" class="px-2.5 py-1 bg-red-400 hover:bg-red-500 rounded-xl font-bold">ออกจากระบบ</button>
 </div>
-<!-- Login -->
 <div id="admin-login-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-[2rem] max-w-sm w-full p-6 relative border-2 border-soft-blush shadow-soft-float space-y-4">
     <button onclick="$('admin-login-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs">✕</button>
@@ -225,7 +214,6 @@ input[type=color].inp{height:40px;padding:2px}
     </form>
   </div>
 </div>
-<!-- Change Password Modal -->
 <div id="change-pass-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-[2rem] max-w-sm w-full p-6 relative border-2 border-soft-blush shadow-soft-float space-y-4">
     <button onclick="$('change-pass-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs">✕</button>
@@ -247,27 +235,24 @@ input[type=color].inp{height:40px;padding:2px}
     </form>
   </div>
 </div>
-<!-- Generic edit form -->
 <div id="form-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
-  <form onsubmit="event.preventDefault();formSave()" class="bg-cream-card rounded-3xl max-w-md w-full p-5 relative border-4 border-white shadow-soft-float space-y-3 max-h-[90vh] overflow-y-auto">
+  <form onsubmit="event.preventDefault(); if(typeof formSave === 'function') formSave();" class="bg-cream-card rounded-3xl max-w-md w-full p-5 relative border-4 border-white shadow-soft-float space-y-3 max-h-[90vh] overflow-y-auto">
     <button type="button" onclick="closeForm()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush">✕</button>
     <h3 id="form-title" class="font-handwritten text-xl font-bold pr-8"></h3>
     <div id="form-fields" class="space-y-3"></div>
     <div class="flex items-center gap-2 pt-1">
-      <button type="button" id="form-del" onclick="formDelete()" class="hidden px-4 py-2 bg-red-100 text-red-600 text-xs font-bold rounded-2xl">🗑 ลบ</button><span class="flex-1"></span>
+      <button type="button" id="form-del" onclick="if(typeof formDelete === 'function') formDelete();" class="hidden px-4 py-2 bg-red-100 text-red-600 text-xs font-bold rounded-2xl">🗑 ลบ</button><span class="flex-1"></span>
       <button type="button" onclick="closeForm()" class="px-4 py-2 bg-gray-100 text-gray-600 text-xs font-bold rounded-2xl">ยกเลิก</button>
       <button type="submit" class="px-5 py-2 bg-blush-dark text-white text-xs font-bold rounded-2xl shadow-scrapbook">บันทึก</button>
     </div>
   </form>
 </div>
-<!-- Product detail -->
 <div id="product-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-3xl max-w-md w-full p-6 relative border-4 border-white shadow-soft-float">
     <button onclick="$('product-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush z-10">✕</button>
     <div id="modal-product-content"></div>
   </div>
 </div>
-<!-- Write review -->
 <div id="review-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-3xl max-w-md w-full p-6 relative border-4 border-white shadow-soft-float space-y-4">
     <button onclick="closeReviewModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush">✕</button>
@@ -313,7 +298,8 @@ let texts=load('miori_texts',oi?{siteTitle:oi.title,slogan:oi.slogan}:{});
 let music=load('miori_music',oi?{title:oi.musicTitle,url:oi.musicUrl}:DEF_MUSIC);
 let images=load('miori_images',{logo:oldImg('miori_logo'),bannerStore:oldImg('miori_banner_store'),bannerReviews:oldImg('miori_banner_reviews')});
 let theme={...DEF_THEME,...load('miori_theme',{})};
-let loggedIn=localStorage.getItem('miori_admin_logged')==='true', editing=loggedIn, currentCategory='all', selectedRating=5, isAudioPlaying=false, formSave=()=>{};
+let loggedIn=localStorage.getItem('miori_admin_logged')==='true', editing=loggedIn, currentCategory='all', selectedRating=5;
+let formSave=null, formDel=null;
 let adminPassword=localStorage.getItem('miori_admin_password')||'admin123';
 function applyTexts(){document.querySelectorAll('[data-edit]').forEach(el=>{if(el.dataset.def===undefined)el.dataset.def=el.textContent;const v=texts[el.dataset.edit];el.textContent=v!==undefined?v:el.dataset.def;});}
 function applyTheme(){for(const[k,v] of Object.entries(theme))document.documentElement.style.setProperty('--color-'+k,v);}
@@ -326,24 +312,28 @@ function applyImages(){
   b.classList.toggle('hidden',!has);['bg-white/70','p-4','rounded-2xl'].forEach(c=>o.toggle(c,has));
   ['site','contact'].forEach(p=>{const h=!!images.logo;if(h)$(p+'-logo-img').src=images.logo;$(p+'-logo-img').classList.toggle('hidden',!h);$(p+'-logo-svg').classList.toggle('hidden',h);});
 }
-let formImgs={},formDel=null;
+let formImgs={};
 const getText=k=>texts[k]!==undefined?texts[k]:(document.querySelector('[data-edit="'+k+'"]')?.dataset.def??'');
 function openForm(title,fields,onSave,onDelete){
-  formImgs={};formDel=onDelete||null;
+  formImgs={}; formSave=onSave; formDel=onDelete||null;
   $('form-del').classList.toggle('hidden',!onDelete);
   $('form-title').textContent=title;
   $('form-fields').innerHTML=fields.map(f=>{
     const id='f-'+f.k,v=esc(f.value);let input;
-    if(f.type==='image')input=`<div class="flex items-center gap-3"><img id="prev-$f.k"src="${esc(f.value||'')}" class="w-20 h-20 object-cover rounded-xl border-2 border-soft-blush bg-warm-cream $f.value?'':'hidden'"><buttontype="button"class="ebtnebtn-l"style="display:inline-flex"onclick="pickFormImage('${f.k}',$f.maxW||800,${f.png?1:0})"><i class="fa-solid fa-camera"></i> เลือกรูปใหม่</button></div>`;
-    else if(f.type==='textarea')input=`<textarea id="$id"rows="${f.rows||3}" class="inp resize-none">${v}</textarea>`;
-    else if(f.type==='select')input=`<select id="$id"class="inp">${f.options.map(o=>`<option value="${esc(o[0])}" $o[0]==f.value?'selected':''}>${esc(o[1])}</option>`).join('')}</select>`;
-    else if(f.type==='color')input=`<div class="flex items-center gap-2"><input id="$id"type="color"value="${v}" oninput="$('${id}_txt').value=this.value" class="w-12 h-10 p-1 rounded-xl border-2 border-soft-blush bg-warm-cream cursor-pointer shrink-0"><input id="${id}_{t}xt"type="text"value="${v}" oninput="if(/^#[0-9A-F]{6}$/i.test(this.value))$('${id}').value=this.value" class="inp uppercase"></div>`;
-    else input=`<input id="$id"type="${f.type||'text'}" value="${v}" ${f.min!=null?`min="${f.min}" max="${f.max}"`:''} class="inp">`;
-    return `<div><label class="block text-xs font-bold mb-1">$f.label</label>${input}</div>`;}).join('');
-  formSave=()=>{const v={};fields.forEach(f=>v[f.k]=f.type==='image'?formImgs[f.k]:$('f-'+f.k).value);onSave(v);closeForm();};$('form-modal').classList.remove('hidden');
+    if(f.type==='image')input=`<div class="flex items-center gap-3"><img id="prev-${f.k}" src="${esc(f.value||'')}" class="w-20 h-20 object-cover rounded-xl border-2 border-soft-blush bg-warm-cream ${f.value?'':'hidden'}"><button type="button" class="ebtn ebtn-l" style="display:inline-flex" onclick="pickFormImage('${f.k}',${f.maxW||800},${f.png?1:0})"><i class="fa-solid fa-camera"></i> เลือกรูปใหม่</button></div>`;
+    else if(f.type==='textarea')input=`<textarea id="${id}" rows="${f.rows||3}" class="inp resize-none">${v}</textarea>`;
+    else if(f.type==='select')input=`<select id="${id}" class="inp">${f.options.map(o=>`<option value="${esc(o[0])}" ${o[0]==f.value?'selected':''}>${esc(o[1])}</option>`).join('')}</select>`;
+    else if(f.type==='color')input=`<div class="flex items-center gap-2"><input id="${id}" type="color" value="${v}" oninput="$('${id}_txt').value=this.value" class="w-12 h-10 p-1 rounded-xl border-2 border-soft-blush bg-warm-cream cursor-pointer shrink-0"><input id="${id}_txt" type="text" value="${v}" oninput="if(/^#[0-9A-F]{6}$/i.test(this.value))$('${id}').value=this.value" class="inp uppercase"></div>`;
+    else input=`<input id="${id}" type="${f.type||'text'}" value="${v}" ${f.min!=null?`min="${f.min}" max="${f.max}"`:''} class="inp">`;
+    return `<div><label class="block text-xs font-bold mb-1">${f.label}</label>${input}</div>`;
+  }).join('');
+  $('form-modal').classList.remove('hidden');
+}
+function pickFormImage(k,maxW,png){
+  pickImage(maxW,!!png,d=>{formImgs[k]=d;const prev=$('prev-'+k);if(prev){prev.src=d;prev.classList.remove('hidden');}});
 }
 function closeForm(){$('form-modal').classList.add('hidden');}
-function formDelete(){if(confirm('ลบรายการนี้ใช่หรือไม่?')){formDel&&formDel();closeForm();}}
+function formDelete(){if(confirm('ลบรายการนี้ใช่หรือไม่?')){if(formDel)formDel();closeForm();}}
 const SECTIONS={
  header:['✎ แก้ไขส่วนหัวเว็บ',[['siteTitle','ชื่อร้าน'],['siteJp','ข้อความข้างชื่อร้าน'],['slogan','สโลแกน'],['navStore','เมนู: หน้าร้าน'],['navReviews','เมนู: รีวิว'],['navContact','เมนู: ติดต่อเรา']],[['logo','โลโก้ร้าน (วงกลม)',300,1]]],
  banner:['✎ แก้ไขแบนเนอร์หน้าร้าน',[['bannerBadge','ป้ายเล็กบนหัวข้อ'],['bannerT1','หัวข้อบรรทัดที่ 1'],['bannerT2','หัวข้อบรรทัดที่ 2'],['bannerDesc','คำอธิบาย','t'],['bannerBtn','ข้อความปุ่ม'],['bannerShip','ข้อความจัดส่ง'],['heroCaption','คำใต้รูปการ์ด']],[['bannerStore','รูปแบนเนอร์ (1122x495)',1122],['hero','รูปการ์ดข้างแบนเนอร์',500]]],
@@ -356,15 +346,15 @@ function editSection(n){
   const fields=[...tx.map(([k,l,t])=>({k,label:l,type:t?'textarea':'text',rows:2,value:getText(k)})),
     ...im.map(([k,l,w,png])=>({k,label:l,type:'image',maxW:w,png,value:images[k]||(k==='hero'?DEF_IMG.hero:'')}))];
   openForm(title,fields,v=>{
-    tx.forEach(([k])=>texts[k]=v[k]);im.forEach(([k])=>{if(v[k])images[k]=v[k];});
+    tx.forEach(([k])=>texts[k]=v[k]);im.forEach(([k])=>{if(formImgs[k])images[k]=formImgs[k];});
     save('miori_texts',texts);save('miori_images',images);applyTexts();applyImages();showToast('✨ บันทึกแล้ว');});
 }
 function renderContacts(){
   $('contact-cards-container').innerHTML=contacts.map(c=>`
     <div class="relative group">
       <a href="${esc(c.url)}" target="_blank" class="flex items-center gap-5 bg-cream-card px-5 py-4 rounded-3xl border-2 border-soft-blush shadow-scrapbook hover:border-blush-dark tilt-hover">
-        <div class="w-14 h-14 rounded-2xl $esc(c.color)borderflexitems-centerjustify-centertext-xlshrink-0"><iclass="${esc(c.icon)}"></i></div>
-        <div class="min-w-0 flex-1"><h4 class="font-bold text-base sm:text-lg">$esc(c.name)</h4><pclass="text-xssm:text-smtext-muted-browntruncate">${esc(c.handle)}</p></div>
+        <div class="w-14 h-14 rounded-2xl ${esc(c.color)} border flex items-center justify-center text-xl shrink-0"><i class="${esc(c.icon)}"></i></div>
+        <div class="min-w-0 flex-1"><h4 class="font-bold text-base sm:text-lg">${esc(c.name)}</h4><p class="text-xs sm:text-sm text-muted-brown truncate">${esc(c.handle)}</p></div>
         <span class="text-xs font-bold text-blush-dark bg-soft-blush px-3.5 py-1.5 rounded-full whitespace-nowrap">${esc(c.tag)}</span>
       </a>
       <button class="admin-only absolute top-3 right-3 ebtn" title="แก้ไขช่องทางนี้" onclick="editSingleContact('${c.id}')"><i class="fa-solid fa-pen"></i></button>
@@ -378,7 +368,7 @@ function editSingleContact(id){
     {k:'handle',label:'ชื่อบัญชี / ข้อความย่อย (เช่น @miori)',value:item.handle},
     {k:'tag',label:'ข้อความป้ายเล็ก (เช่น ทักแชท)',value:item.tag},
     {k:'url',label:'ลิงก์ปลายทาง URL',value:item.url},
-    {k:'icon',label:'FontAwesome Icon Class (เช่น fa-brands fa-facebook-f หรือ fa-solid fa-envelope)',value:item.icon},
+    {k:'icon',label:'FontAwesome Icon Class (เช่น fa-brands fa-facebook-f)',value:item.icon},
     {k:'color',label:'Tailwind สีไอคอน (เช่น bg-blue-50 text-blue-500 border-blue-200)',value:item.color}
   ],v=>{
     if(id){Object.assign(item,v);}else{contacts.push({id:'c'+Date.now(),...v});}
@@ -394,7 +384,7 @@ function pickImage(maxW,png,cb){
   i.click();
 }
 function changeImage(k){
-  const[w,png]={logo:[300,1],bannerStore:[1122],bannerReviews:[1122],hero:[500ل}[k];
+  const[w,png]={logo:[300,1],bannerStore:[1122],bannerReviews:[1122],hero:[500]}[k];
   pickImage(w,!!png,d=>{images[k]=d;save('miori_images',images);applyImages();showToast('✨ เปลี่ยนรูปสำเร็จ');});
 }
 function switchTab(n){
@@ -414,6 +404,10 @@ function editMusic(){
 function handleGear(){
   if(loggedIn){setEditing(!editing);showToast(editing?'✏️ เปิดโหมดแก้ไข':'👀 โหมดดูแบบลูกค้า');}
   else $('admin-login-modal').classList.remove('hidden');
+}
+function setEditing(val){
+  editing=val;
+  document.body.classList.toggle('editing',editing);
 }
 function handleAdminLogin(e){
   e.preventDefault();
@@ -447,7 +441,7 @@ function editTheme(){
 }
 function resetTheme(){theme={...DEF_THEME};save('miori_theme',theme);applyTheme();showToast('🔄 รีเซ็ตโทนสีแล้ว');}
 function renderCategoryChips(){
-  const chip=(id,name)=>`<button onclick="filterCategory('$id')"class="${currentCategory===id?'bg-soft-blush font-bold border-blush-dark':'bg-white'} px-4 py-2 rounded-2xl text-xs sm:text-sm border-2 border-soft-blush shadow-scrapbook hover:bg-soft-blush whitespace-nowrap">${esc(name)}</button>`;
+  const chip=(id,name)=>`<button onclick="filterCategory('${id}')" class="${currentCategory===id?'bg-soft-blush font-bold border-blush-dark':'bg-white'} px-4 py-2 rounded-2xl text-xs sm:text-sm border-2 border-soft-blush shadow-scrapbook hover:bg-soft-blush whitespace-nowrap">${esc(name)}</button>`;
   $('category-chips-container').innerHTML=chip('all','ทั้งหมด (All)')+categories.map(c=>chip(c.id,c.name)).join('');
 }
 function editCategories(){
@@ -469,7 +463,7 @@ function renderProducts(){
   <div class="bg-cream-card rounded-3xl p-3.5 border-2 border-soft-blush shadow-scrapbook hover:border-blush-dark tilt-hover flex flex-col justify-between group">
     <div class="space-y-3">
       <div class="relative aspect-square rounded-2xl overflow-hidden bg-warm-cream border border-soft-brown/10">
-        <img src="$esc(p.img)"alt="${esc(p.name)}" class="w-full h-full object-cover" onerror="this.src='${PLACE}'">
+        <img src="${esc(p.img)}" alt="${esc(p.name)}" class="w-full h-full object-cover" onerror="this.src='${PLACE}'">
         <span class="absolute top-2 left-2 bg-white/90 font-handwritten font-bold text-[10px] px-2.5 py-0.5 rounded-full border border-soft-blush">${esc(p.badge||'New')}</span>
         <button class="admin-only ebtn absolute bottom-2 right-2" title="แก้ไขสินค้า" onclick="editProduct(${p.id})"><i class="fa-solid fa-pen"></i></button>
       </div>
@@ -480,7 +474,7 @@ function renderProducts(){
     </div>
     <div class="mt-3 pt-2 border-t border-dashed border-soft-blush flex items-center justify-between">
       <span class="font-handwritten font-bold text-base">฿${esc(p.price)}</span>
-      <button onclick="openProductModal($p.id)"class="px-3py-1.5bg-soft-blushhover:bg-blush-darkhover:text-whitetext-xsfont-handwrittenfont-boldrounded-xl">${esc(p.viewBtnText||'ดูน้อง ★')}</button>
+      <button onclick="openProductModal(${p.id})" class="px-3 py-1.5 bg-soft-blush hover:bg-blush-dark hover:text-white text-xs font-handwritten font-bold rounded-xl">${esc(p.viewBtnText||'ดูน้อง ★')}</button>
     </div>
   </div>`).join('')+`<button class="admin-only min-h-[10rem] rounded-3xl border-2 border-dashed custom-border-dashed items-center justify-center gap-2 text-sm font-bold text-blush-dark bg-cream-card hover:bg-soft-blush" onclick="editProduct()"><i class="fa-solid fa-plus"></i> เพิ่มสินค้า</button>`;
 }
@@ -496,21 +490,22 @@ function editProduct(id){
     {k:'viewBtnText',label:'ข้อความปุ่มดูสินค้า (เช่น ดูน้อง ★)',value:p.viewBtnText||'ดูน้อง ★'},
     {k:'btnText',label:'ชื่อปุ่มสั่งซื้อ',value:p.btnText||''},
     {k:'btnLink',label:'ลิงก์ปุ่มสั่งซื้อ',value:p.btnLink||''}],v=>{
-    v.price=parseFloat(v.price)||0;if(!v.img)delete v.img;
-    if(id)Object.assign(p,v);else products.unshift({id:Date.now(),rating:5,img:PLACE,...v});
+    v.price=parseFloat(v.price)||0;
+    if(formImgs.img)v.img=formImgs.img; else if(!id)v.img=PLACE; else v.img=p.img;
+    if(id)Object.assign(p,v);else products.unshift({id:Date.now(),rating:5,...v});
     save('miori_products',products);renderProducts();showToast('✨ บันทึกสินค้าแล้ว');},
     id?()=>{products=products.filter(x=>x.id!=id);save('miori_products',products);renderProducts();showToast('🗑️ ลบสินค้าแล้ว');}:null);
 }
 function openProductModal(id){
   const p=products.find(x=>x.id===id);if(!p)return;
   $('modal-product-content').innerHTML=`<div class="space-y-4">
-    <div class="aspect-video rounded-2xl overflow-hidden bg-warm-cream border-2 border-soft-blush"><img src="$esc(p.img)"class="w-fullh-fullobject-cover"onerror="this.src='${PLACE}'"></div>
+    <div class="aspect-video rounded-2xl overflow-hidden bg-warm-cream border-2 border-soft-blush"><img src="${esc(p.img)}" class="w-full h-full object-cover" onerror="this.src='${PLACE}'"></div>
     <div><span class="text-[11px] font-bold text-blush-dark bg-soft-blush px-3 py-1 rounded-full">${esc(p.badge||'Handmade')}</span>
     <h3 class="font-handwritten text-xl font-bold mt-2">${esc(p.name)}</h3>
     <p class="text-xs text-muted-brown mt-1 leading-relaxed">${esc(p.desc||'สินค้าทำมือและของน่ารักจาก Miori Studio')}</p></div>
     <div class="flex items-center justify-between pt-3 border-t-2 border-dashed border-soft-blush">
       <div><p class="text-[10px] text-muted-brown">ราคาพิเศษ</p><span class="font-handwritten text-2xl font-bold">฿${esc(p.price)}</span></div>
-      <a href="$esc(p.btnLink||'https://line.me')"target={"}_{b}lank"class="px-5py-2.5bg-blush-darkhover:bg-soft-browntext-whitetext-xsfont-handwrittenfont-boldrounded-2xlshadow-scrapbook">${esc(p.btnText||B)}</a>
+      <a href="${esc(p.btnLink||'https://line.me')}" target="_blank" class="px-5 py-2.5 bg-blush-dark hover:bg-soft-brown text-white text-xs font-handwritten font-bold rounded-2xl shadow-scrapbook">${esc(p.btnText||B)}</a>
     </div></div>`;
   $('product-modal').classList.remove('hidden');
 }
@@ -530,7 +525,7 @@ function renderReviews(){
   <div class="${r.color||'bg-cream-card'} p-6 rounded-3xl border-2 border-soft-blush shadow-scrapbook relative ${r.rotation||''} space-y-3">
     <div class="washi-tape ${i%2===0?'-top-2.5 left-8 rotate-[-3deg]':'-top-2.5 right-8 rotate-[3deg]'}"></div>
     <div class="flex justify-between items-start">
-      <div><h4 class="font-bold text-base">$esc(r.name)</h4><pclass="text-[10px]text-muted-brown">${esc(r.date)}</p></div>
+      <div><h4 class="font-bold text-base">${esc(r.name)}</h4><p class="text-[10px] text-muted-brown">${esc(r.date)}</p></div>
       <div class="text-yellow-400 text-xs">${'<i class="fa-solid fa-star"></i>'.repeat(r.rating)}</div>
     </div>
     <p class="text-xs leading-relaxed">"${esc(r.comment)}"</p>
@@ -549,7 +544,7 @@ function openReviewModal(){$('review-modal').classList.remove('hidden');}
 function closeReviewModal(){$('review-modal').classList.add('hidden');}
 function setStarRating(n){
   selectedRating=n;
-  $('star-selector').innerHTML=[1,2,3,4,5].map(i=>`<ionclick="setStarRating(${i})" class="fa-solid fa-star ${i<=n?'text-yellow-400':'text-gray-300'}"></i>`).join('');
+  $('star-selector').innerHTML=[1,2,3,4,5].map(i=>`<i onclick="setStarRating(${i})" class="fa-solid fa-star ${i<=n?'text-yellow-400':'text-gray-300'}"></i>`).join('');
 }
 function submitReview(e){
   e.preventDefault();
