@@ -158,7 +158,7 @@ input[type=color].inp{height:40px;padding:2px}
         <button class="admin-only ebtn ebtn-l absolute top-5 right-5 z-20" onclick="changeImage('bannerReviews')"><i class="fa-solid fa-camera"></i> เปลี่ยนแบนเนอร์</button>
       </div>
     </div>
-    <div class="bg-[var(--color-revbox)] px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border-2 border-dashed custom-border-dashed shadow-scrapbook flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 transition-colors" style="background-color: var(--color-revbox);">
+    <div class="px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border-2 border-dashed custom-border-dashed shadow-scrapbook flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 transition-colors" style="background-color: var(--color-revbox);">
       <div class="text-center sm:text-left min-w-0">
         <span class="inline-flex items-center gap-1 text-[10px] font-bold bg-soft-blush text-blush-dark px-2 py-0.5 rounded-full"><i class="fa-solid fa-heart"></i><span data-edit="revTag">Customer Love Notes</span></span> <button class="admin-only ebtn" title="แก้ไขกล่องรีวิว" onclick="editSection('reviewsHead')"><i class="fa-solid fa-pen"></i></button>
         <h2 data-edit="revTitle" class="font-handwritten text-base sm:text-xl font-bold leading-tight mt-1">กล่องบันทึกความประทับใจ</h2>
@@ -285,11 +285,8 @@ input[type=color].inp{height:40px;padding:2px}
 </div>
 <div id="toast" class="fixed top-24 left-1/2 -translate-x-1/2 -translate-y-6 opacity-0 z-[60] bg-soft-brown text-white px-4 py-2.5 rounded-2xl shadow-soft-float text-xs font-bold transition-all duration-300 pointer-events-none border-2 border-soft-blush" style="background-color: var(--color-text);"><span id="toast-msg"></span></div>
 <script type="module">
-  // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
-
-  // Your web app's Firebase configuration
   const firebaseConfig = {
     apiKey: "AIzaSyDAhaPZO-Dwyb01-2vcIdboMEI-qBbdFi0",
     authDomain: "miori-store-web.firebaseapp.com",
@@ -300,8 +297,6 @@ input[type=color].inp{height:40px;padding:2px}
     appId: "1:763998873956:web:302e2e965a23693e607271",
     measurementId: "G-BBP7SHYR2X"
   };
-
-  // Initialize Firebase
   const app = initializeApp(firebaseConfig);
   const analytics = getAnalytics(app);
 </script>
@@ -361,7 +356,7 @@ function openForm(title,fields,onSave,onDelete){
     const id='f-'+f.k,v=esc(f.value);let input;
     if(f.type==='image')input=`<div class="flex items-center gap-3"><img id="prev-${f.k}" src="${esc(f.value||'')}" class="w-20 h-20 object-cover rounded-xl border-2 border-soft-blush bg-warm-cream ${f.value?'':'hidden'}"><button type="button" class="ebtn ebtn-l" style="display:inline-flex" onclick="pickFormImage('${f.k}',${f.maxW||800},${f.png?1:0})"><i class="fa-solid fa-camera"></i> เลือกรูปใหม่</button></div>`;
     else if(f.type==='textarea')input=`<textarea id="${id}" rows="${f.rows||3}" class="inp resize-none">${v}</textarea>`;
-    else if(f.type==='select')input=`<select id="${id}" class="inp">${f.options.map(o=>`<option value="${esc(o[0])}" ${o[0]==f.value?'selected':''}>${esc(o[1])}</option>`).join('')}</select>`;
+    else if(f.type==='select')input=`<select id="${id}" class="inp">${f.options.map(o=>`<option value="${esc(o[0])}" ${o[0]==f.value?'selected':''}>${esc(o[1])}</option>`.join(''))}</select>`;
     else if(f.type==='color')input=`<div class="flex items-center gap-2"><input id="${id}" type="color" value="${v}" oninput="$('${id}_txt').value=this.value" class="w-12 h-10 p-1 rounded-xl border-2 border-soft-blush bg-warm-cream cursor-pointer shrink-0"><input id="${id}_txt" type="text" value="${v}" oninput="if(/^#[0-9A-F]{6}$/i.test(this.value))$('${id}').value=this.value" class="inp uppercase"></div>`;
     else input=`<input id="${id}" type="${f.type||'text'}" value="${v}" ${f.min!=null?`min="${f.min}" max="${f.max}"`:''} class="inp">`;
     return `<div><label class="block text-xs font-bold mb-1">${f.label}</label>${input}</div>`;
@@ -374,8 +369,8 @@ function pickFormImage(k,maxW,png){
 function closeForm(){$('form-modal').classList.add('hidden');}
 function formDelete(){if(confirm('ลบรายการนี้ใช่หรือไม่?')){if(formDel)formDel();closeForm();}}
 const SECTIONS={
- header:['✎ แก้ไขส่วนหัวเว็บ',[['siteTitle','ชื่อร้าน'],['siteJp','ข้อความข้างชื่อร้าน'],['slogan','สโลแกน'],['navStore','เมนู: หน้าร้าน'],['navReviews','เมนู: รีวิว'],['navContact','เมนู: ติดต่อเรา']],[[['logo','โลโก้ร้าน (วงกลม)',300,1]]],
- banner:['✎ แก้ไขแบนเนอร์หน้าร้าน',[['bannerBadge','ป้ายเล็กบนหัวข้อ'],['bannerT1','หัวข้อบรรทัดที่ 1'],['bannerT2','หัวข้อบรรทัดที่ 2'],['bannerDesc','คำอธิบาย','t'],['bannerBtn','ข้อความปุ่ม'],['bannerShip','ข้อความจัดส่ง'],['heroCaption','คำใต้รูปการ์ด']],[[['bannerStore','รูปแบนเนอร์ (1122x495)',1122],['hero','รูปการ์ดข้างแบนเนอร์',500]]],
+ header:['✎ แก้ไขส่วนหัวเว็บ',[['siteTitle','ชื่อร้าน'],['siteJp','ข้อความข้างชื่อร้าน'],['slogan','สโลแกน'],['navStore','เมนู: หน้าร้าน'],['navReviews','เมนู: รีวิว'],['navContact','เมนู: ติดต่อเรา']],[[['logo','โลโก้ร้าน (วงกลม)',300,1]]]],
+ banner:['✎ แก้ไขแบนเนอร์หน้าร้าน',[['bannerBadge','ป้ายเล็กบนหัวข้อ'],['bannerT1','หัวข้อบรรทัดที่ 1'],['bannerT2','หัวข้อบรรทัดที่ 2'],['bannerDesc','คำอธิบาย','t'],['bannerBtn','ข้อความปุ่ม'],['bannerShip','ข้อความจัดส่ง'],['heroCaption','คำใต้รูปการ์ด']],[[['bannerStore','รูปแบนเนอร์ (1122x495)',1122],['hero','รูปการ์ดข้างแบนเนอร์',500]]]],
  reviewsHead:['✎ แก้ไขกล่องรีวิว',[['revTag','ป้ายเล็ก'],['revTitle','หัวข้อ'],['revSub','คำอธิบาย','t'],['revBtn','ข้อความปุ่มเขียนรีวิว']],[]],
  contactHead:['✎ แก้ไขหัวข้อหน้าติดต่อ',[['siteTitle','ชื่อร้าน'],['contactSlogan','สโลแกน','t']],[]],
  footer:['✎ แก้ไขท้ายเว็บ',[['footer1','บรรทัดที่ 1'],['footer2','บรรทัดที่ 2']],[]]
@@ -651,7 +646,7 @@ function updateReviewStats(){
 function renderReviews(){
   $('reviews-container').innerHTML=reviewsData.map((r,i)=>`
   <div class="${r.color||'bg-cream-card'} p-6 rounded-3xl border-2 border-soft-blush shadow-scrapbook relative ${r.rotation||''} space-y-3">
-    <div class="washi-tape ${i%2===0?'-top-2.5 left-8 rotate-[-3deg]':'-top-2.5 right-8 rotate-[3deg]}"></div>
+    <div class="washi-tape ${i%2===0?'-top-2.5 left-8 rotate-[-3deg]':'-top-2.5 right-8 rotate-[3deg]'}"></div>
     <div class="flex justify-between items-start">
       <div><h4 class="font-bold text-base">${esc(r.name)}</h4><p class="text-[10px] text-muted-brown">${esc(r.date)}</p></div>
       <div class="text-yellow-400 text-xs">${'<i class="fa-solid fa-star"></i>'.repeat(r.rating)}</div>
@@ -678,7 +673,15 @@ function setStarRating(n){
 function submitReview(e){
   e.preventDefault();
   const C=['bg-pastel-yellow','bg-soft-blush','bg-sage-green','bg-pastel-peach'],R=['rotate-[-2deg]','rotate-[2deg]','rotate-[-1deg]','rotate-[1deg]'];
-  reviewsData.unshift({id:Date.now(),name:$('review-name').value,rating:selectedRating,date:new Date().toLocaleDateString('th-TH',{day:'numeric',month:'short',year:'numeric'}),comment:$('review-comment').value,color:C[Math.floor(Math.random()*C.length)],rotation:R[Math.floor(Math.random()*R.length)]});
+  reviewsData.unshift({
+    id:Date.now(),
+    name:$('review-name').value,
+    rating:selectedRating,
+    date:new Date().toLocaleDateString('th-TH', {day:'numeric', month:'short', year:'numeric'}),
+    comment:$('review-comment').value,
+    color:C[Math.floor(Math.random()*C.length)],
+    rotation:R[Math.floor(Math.random()*R.length)]
+  });
   save('miori_reviews',reviewsData);renderReviews();closeReviewModal();e.target.reset();setStarRating(5);showToast('✨ ขอบคุณสำหรับโปสการ์ดรีวิวนะคะ!');
 }
 function showToast(m){
