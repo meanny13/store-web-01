@@ -41,7 +41,6 @@ input[type=color].inp{height:40px;padding:2px}
 .ebtn{width:1.75rem;height:1.75rem;border-radius:9999px;background:#fff;border:1.5px solid var(--color-primary);color:var(--color-text);font-size:.7rem;align-items:center;justify-content:center;box-shadow:0 2px 4px rgba(0,0,0,.12);cursor:pointer}
 .ebtn:hover{background:var(--color-blush)}
 .ebtn-l{width:auto;height:1.9rem;padding:0 .75rem;gap:.35rem;font-weight:700}
-.editing footer{padding-bottom:4.5rem}
 .btn-cute-minimal {
   display: inline-flex;
   align-items: center;
@@ -138,7 +137,6 @@ input[type=color].inp{height:40px;padding:2px}
         </div>
         <button class="admin-only ebtn ebtn-l" onclick="editCategories()"><i class="fa-solid fa-pen"></i> แก้ไขหมวดหมู่</button>
       </div>
-      <!-- ช่องค้นหาสินค้าด้านล่างหัวข้อหมวดหมู่สินค้า -->
       <div class="w-full pt-1">
         <div class="relative max-w-md">
           <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-muted-brown">
@@ -206,21 +204,28 @@ input[type=color].inp{height:40px;padding:2px}
   <button class="admin-only ebtn ebtn-l mx-auto" onclick="editSection('footer')"><i class="fa-solid fa-pen"></i> แก้ไขท้ายเว็บ</button>
 </footer>
 
-<!-- แถบหลังบ้านแบบมินิมอลไม่บังหน้าเว็บ -->
-<div id="admin-bar" class="admin-only fixed bottom-6 right-6 z-40 bg-cream-card text-soft-brown text-[11px] p-3 rounded-3xl shadow-soft-float border-2 border-soft-blush flex flex-col gap-2 w-56" style="background-color: var(--color-card);">
-  <div class="text-center font-bold pb-1 border-b border-dashed border-soft-blush text-xs flex items-center justify-center gap-1.5">
-    <i class="fa-solid fa-pen-to-square text-blush-dark"></i> โหมดจัดการหลังบ้าน
+<!-- เมนูจัดการหลังบ้าน (ย้ายมาอยู่ใน Modal/Pop-up เมื่อกดปุ่มเฟือง แทนการใช้แถบติดหน้าจอ) -->
+<div id="admin-menu-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-cream-card rounded-[2rem] max-w-sm w-full p-6 relative border-2 border-soft-blush shadow-soft-float space-y-3">
+    <button onclick="$('admin-menu-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs flex items-center justify-center">✕</button>
+    <div class="text-center pb-2 border-b border-dashed border-soft-blush">
+      <div class="w-10 h-10 rounded-2xl bg-soft-blush text-blush-dark mx-auto flex items-center justify-center mb-1"><i class="fa-solid fa-pen-to-square"></i></div>
+      <h3 class="font-handwritten text-xl font-bold">เมนูจัดการหลังบ้าน</h3>
+      <p class="text-[11px] text-muted-brown">เลือกเครื่องมือสำหรับปรับแต่งเว็บไซต์</p>
+    </div>
+    <div class="space-y-2 pt-1">
+      <button onclick="$('admin-menu-modal').classList.add('hidden'); editTheme();" class="btn-cute-minimal">🎨 ธีมสีเว็บไซต์</button>
+      <button onclick="$('admin-menu-modal').classList.add('hidden'); openChangePasswordModal();" class="btn-cute-minimal">🔑 เปลี่ยนรหัสผ่าน</button>
+      <button onclick="$('admin-menu-modal').classList.add('hidden'); resetTheme();" class="btn-cute-minimal">↺ รีเซ็ตค่าสี</button>
+      <button onclick="$('admin-menu-modal').classList.add('hidden'); resetAll();" class="btn-cute-minimal" style="border-color: #fca5a5; color: #dc2626;">⚠️ รีเซ็ตข้อมูลทั้งหมด</button>
+      <button onclick="$('admin-menu-modal').classList.add('hidden'); adminLogout();" class="w-full py-2.5 bg-red-400 hover:bg-red-500 text-white rounded-2xl font-bold text-center transition-all mt-2 shadow-sm text-xs">ออกจากระบบ</button>
+    </div>
   </div>
-  <button onclick="editTheme()" class="btn-cute-minimal">🎨 ธีมสีเว็บไซต์</button>
-  <button onclick="openChangePasswordModal()" class="btn-cute-minimal">🔑 เปลี่ยนรหัสผ่าน</button>
-  <button onclick="resetTheme()" class="btn-cute-minimal">↺ รีเซ็ตค่าสี</button>
-  <button onclick="resetAll()" class="btn-cute-minimal" style="border-color: #fca5a5; color: #dc2626;">⚠️ รีเซ็ตข้อมูลทั้งหมด</button>
-  <button onclick="adminLogout()" class="w-full py-2 bg-red-400 hover:bg-red-500 text-white rounded-2xl font-bold text-center transition-all mt-1 shadow-sm">ออกจากระบบ</button>
 </div>
 
 <div id="admin-login-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-[2rem] max-w-sm w-full p-6 relative border-2 border-soft-blush shadow-soft-float space-y-4">
-    <button onclick="$('admin-login-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs">✕</button>
+    <button onclick="$('admin-login-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs flex items-center justify-center">✕</button>
     <div class="text-center"><div class="w-10 h-10 rounded-2xl bg-soft-blush text-blush-dark mx-auto flex items-center justify-center"><i class="fa-solid fa-lock"></i></div>
       <h3 class="font-handwritten text-xl font-bold mt-1">เข้าสู่ระบบหลังบ้าน</h3></div>
     <form onsubmit="handleAdminLogin(event)" class="space-y-3">
@@ -232,7 +237,7 @@ input[type=color].inp{height:40px;padding:2px}
 </div>
 <div id="change-pass-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-[2rem] max-w-sm w-full p-6 relative border-2 border-soft-blush shadow-soft-float space-y-4">
-    <button onclick="$('change-pass-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs">✕</button>
+    <button onclick="$('change-pass-modal').classList.add('hidden')" class="absolute top-4 right-4 w-7 h-7 rounded-full bg-soft-blush text-xs flex items-center justify-center">✕</button>
     <div class="text-center">
       <div class="w-10 h-10 rounded-2xl bg-soft-blush text-blush-dark mx-auto flex items-center justify-center"><i class="fa-solid fa-key"></i></div>
       <h3 class="font-handwritten text-xl font-bold mt-1">เปลี่ยนรหัสผ่านแอดมิน</h3>
@@ -253,7 +258,7 @@ input[type=color].inp{height:40px;padding:2px}
 </div>
 <div id="form-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <form onsubmit="event.preventDefault(); if(typeof formSave === 'function') formSave();" class="bg-cream-card rounded-3xl max-w-md w-full p-5 relative border-4 border-white shadow-soft-float space-y-3 max-h-[90vh] overflow-y-auto">
-    <button type="button" onclick="closeForm()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush">✕</button>
+    <button type="button" onclick="closeForm()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush flex items-center justify-center">✕</button>
     <h3 id="form-title" class="font-handwritten text-xl font-bold pr-8"></h3>
     <div id="form-fields" class="space-y-3"></div>
     <div class="flex items-center gap-2 pt-1">
@@ -265,13 +270,13 @@ input[type=color].inp{height:40px;padding:2px}
 </div>
 <div id="product-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-3xl max-w-md w-full p-6 relative border-4 border-white shadow-soft-float">
-    <button onclick="$('product-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush z-10">✕</button>
+    <button onclick="$('product-modal').classList.add('hidden')" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush z-10 flex items-center justify-center">✕</button>
     <div id="modal-product-content"></div>
   </div>
 </div>
 <div id="review-modal" class="fixed inset-0 bg-soft-brown/40 backdrop-blur-custom z-50 hidden flex items-center justify-center p-4">
   <div class="bg-cream-card rounded-3xl max-w-md w-full p-6 relative border-4 border-white shadow-soft-float space-y-4">
-    <button onclick="closeReviewModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush">✕</button>
+    <button onclick="closeReviewModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-soft-blush flex items-center justify-center">✕</button>
     <div class="text-center"><h3 class="font-handwritten text-xl font-bold">เขียนโปสการ์ดรีวิว</h3><p class="text-xs text-muted-brown">ส่งต่อความรู้สึกดีๆ ให้กับ Miori Studio นะคะ</p></div>
     <form onsubmit="submitReview(event)" class="space-y-3">
       <input type="text" id="review-name" placeholder="ชื่อ/นามสมมุติของคุณ" required class="inp">
@@ -418,8 +423,12 @@ function editMusic(){
     if(isAudioPlaying)toggleAudio();applyMusic();showToast('✨ บันทึกเพลงแล้ว');});
 }
 function handleGear(){
-  if(loggedIn){setEditing(!editing);showToast(editing?'✏️ เปิดโหมดแก้ไข':'👀 โหมดดูแบบลูกค้า');}
-  else $('admin-login-modal').classList.remove('hidden');
+  if(loggedIn){
+    // เปิด Modal เมนูจัดการหลังบ้านแทนการใช้แถบลอยติดหน้าจอ
+    $('admin-menu-modal').classList.remove('hidden');
+  } else {
+    $('admin-login-modal').classList.remove('hidden');
+  }
 }
 function setEditing(val){
   editing=val;
@@ -541,7 +550,6 @@ function updateReviewStats(){
   $('dynamic-rev-count').textContent=`จาก ${count} รีวิว`;
 }
 function renderReviews(){
-  // ปิดการแก้ไขข้อความรีวิวของลูกค้าโดยแอดมิน (อนุญาตเฉพาะปุ่มลบรีวิวที่ไม่เหมาะสมผ่านฟังก์ชันลบ)
   $('reviews-container').innerHTML=reviewsData.map((r,i)=>`
   <div class="${r.color||'bg-cream-card'} p-6 rounded-3xl border-2 border-soft-blush shadow-scrapbook relative ${r.rotation||''} space-y-3">
     <div class="washi-tape ${i%2===0?'-top-2.5 left-8 rotate-[-3deg]':'-top-2.5 right-8 rotate-[3deg]'}"></div>
