@@ -12,13 +12,14 @@
 <script>
 tailwind.config={theme:{extend:{colors:{
 'warm-cream':'var(--color-bg)','cream-card':'var(--color-card)','soft-blush':'var(--color-blush)','blush-dark':'var(--color-primary)','soft-brown':'var(--color-text)',
-'pastel-peach':'#FDE8E1','sage-green':'#E1ECE5','sage-dark':'#81A690','pastel-yellow':'#FCF4DD','muted-brown':'#8F7D77'},
+'pastel-peach':'#FDE8E1','sage-green':'#E1ECE5','sage-dark':'#81A690','pastel-yellow':'#FCF4DD','muted-brown':'#8F7D77',
+'ctrl-btn':'var(--color-ctrl)','rev-box':'var(--color-revbox)'},
 fontFamily:{mali:['Mali','cursive'],itim:['Itim','cursive']},
 boxShadow:{scrapbook:'4px 6px 0 rgba(101,82,77,.12)','soft-float':'0 12px 28px -6px rgba(226,151,146,.25)','glow-circle':'0 0 18px rgba(226,151,146,.35)'},
 aspectRatio:{banner:'1122/495'}}}}
 </script>
 <style>
-:root{--color-bg:#FAF6F0;--color-card:#FFFDF9;--color-primary:#E29792;--color-blush:#F7E7E6;--color-text:#65524D;--color-border:#E29792}
+:root{--color-bg:#FAF6F0;--color-card:#FFFDF9;--color-primary:#E29792;--color-blush:#F7E7E6;--color-text:#65524D;--color-border:#E29792;--color-ctrl:#FCF4DD;--color-revbox:#FFFDF9}
 body{font-family:'Mali',cursive;background-color:var(--color-bg);color:var(--color-text);background-image:radial-gradient(var(--color-primary) .7px,transparent .7px);background-size:28px 28px;overflow-x:hidden}
 h1,h2,h3,h4,.font-handwritten{font-family:'Itim',cursive}
 .custom-border-dashed{border-color:var(--color-border)!important}
@@ -66,8 +67,8 @@ input[type=color].inp{height:40px;padding:2px}
       <div class="flex items-center gap-2 shrink-0 relative">
         <div id="music-notes" class="absolute -top-3 right-14 pointer-events-none hidden"><i class="fa-solid fa-music music-note-1 absolute text-blush-dark text-xs"></i></div>
         <button class="admin-only ebtn" title="แก้ไขเพลง" onclick="editMusic()"><i class="fa-solid fa-pen"></i></button>
-        <button id="play-btn" onclick="toggleAudio()" title="เล่น/หยุดเพลง" class="w-8 h-8 rounded-xl bg-pastel-yellow border-2 border-soft-brown/15 shadow-scrapbook flex items-center justify-center text-xs active:scale-95 shrink-0"><i class="fa-solid fa-play ml-0.5 text-blush-dark"></i></button>
-        <button id="gear" onclick="handleGear()" title="หลังบ้าน" class="w-8 h-8 rounded-xl bg-pastel-yellow border-2 border-soft-brown/15 shadow-scrapbook flex items-center justify-center text-xs active:scale-95 shrink-0"><i class="fa-solid fa-gear text-blush-dark"></i></button>
+        <button id="play-btn" onclick="toggleAudio()" title="เล่น/หยุดเพลง" class="w-9 h-9 rounded-xl bg-ctrl-btn border-2 border-soft-brown/15 shadow-scrapbook flex items-center justify-center text-sm active:scale-95 shrink-0"><i class="fa-solid fa-play ml-0.5 text-blush-dark"></i></button>
+        <button id="gear" onclick="handleGear()" title="หลังบ้าน" class="w-9 h-9 rounded-xl bg-ctrl-btn border-2 border-soft-brown/15 shadow-scrapbook flex items-center justify-center text-sm active:scale-95 shrink-0"><i class="fa-solid fa-gear text-blush-dark"></i></button>
       </div>
     </div>
     <nav class="w-full flex justify-center pt-1">
@@ -128,11 +129,11 @@ input[type=color].inp{height:40px;padding:2px}
         <button class="admin-only ebtn ebtn-l absolute top-5 right-5 z-20" onclick="changeImage('bannerReviews')"><i class="fa-solid fa-camera"></i> เปลี่ยนแบนเนอร์</button>
       </div>
     </div>
-    <div class="bg-cream-card px-4 py-2 sm:px-5 sm:py-2.5 rounded-2xl border-2 border-dashed custom-border-dashed shadow-scrapbook flex flex-col sm:flex-row items-center justify-between gap-1.5 sm:gap-4">
+    <div class="bg-[var(--color-revbox)] px-4 py-3 sm:px-6 sm:py-4 rounded-2xl border-2 border-dashed custom-border-dashed shadow-scrapbook flex flex-col sm:flex-row items-center justify-between gap-2 sm:gap-4 transition-colors">
       <div class="text-center sm:text-left min-w-0">
         <span class="inline-flex items-center gap-1 text-[10px] font-bold bg-soft-blush text-blush-dark px-2 py-0.5 rounded-full"><i class="fa-solid fa-heart"></i><span data-edit="revTag">Customer Love Notes</span></span> <button class="admin-only ebtn" title="แก้ไขกล่องรีวิว" onclick="editSection('reviewsHead')"><i class="fa-solid fa-pen"></i></button>
-        <h2 data-edit="revTitle" class="font-handwritten text-base sm:text-xl font-bold leading-tight">กล่องบันทึกความประทับใจ</h2>
-        <p data-edit="revSub" class="hidden sm:block text-xs text-muted-brown">ความสุขเล็กๆ ของลูกค้าที่ได้รับของน่ารักจาก Miori Studio ค่ะ</p>
+        <h2 data-edit="revTitle" class="font-handwritten text-base sm:text-xl font-bold leading-tight mt-1">กล่องบันทึกความประทับใจ</h2>
+        <p data-edit="revSub" class="hidden sm:block text-xs text-muted-brown mt-0.5">ความสุขเล็กๆ ของลูกค้าที่ได้รับของน่ารักจาก Miori Studio ค่ะ</p>
       </div>
       <div class="flex items-center gap-2 sm:gap-3">
         <div class="flex items-center gap-1.5 bg-warm-cream px-2.5 py-1 rounded-xl border border-soft-brown/10">
@@ -140,13 +141,13 @@ input[type=color].inp{height:40px;padding:2px}
           <span id="dynamic-rev-score" class="font-handwritten text-base font-bold">4.95</span>
           <span id="dynamic-rev-count" class="text-[10px] text-muted-brown">จาก 250+ รีวิว</span>
         </div>
-        <button onclick="openReviewModal()" class="px-3 py-1.5 bg-blush-dark hover:bg-soft-brown text-white text-xs font-handwritten font-bold rounded-xl shadow-scrapbook flex items-center gap-1.5"><i class="fa-solid fa-pen"></i><span data-edit="revBtn">เขียนรีวิวให้น้องหน่อยนะ</span></button>
+        <button onclick="openReviewModal()" class="px-3.5 py-2 bg-blush-dark hover:bg-soft-brown text-white text-xs font-handwritten font-bold rounded-xl shadow-scrapbook flex items-center gap-1.5"><i class="fa-solid fa-pen"></i><span data-edit="revBtn">เขียนรีวิวให้น้องหน่อยนะ</span></button>
       </div>
     </div>
     <div id="reviews-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-2"></div>
   </section>
   <!-- ===== CONTACT ===== -->
-  <section id="page-contact" class="hidden space-y-8">
+  <section id="page-contact" class="hidden space-y-8 max-w-xl mx-auto">
     <div class="text-center space-y-3 py-2">
       <div class="relative inline-block">
         <div class="w-24 h-24 rounded-full bg-pastel-peach border-2 border-dashed custom-border-dashed p-1 shadow-glow-circle flex items-center justify-center overflow-hidden">
@@ -160,34 +161,13 @@ input[type=color].inp{height:40px;padding:2px}
       <p data-edit="contactSlogan" class="text-xs text-muted-brown max-w-md mx-auto">" เติมเต็มมุมโปรดในบ้านด้วยของจุกจิกดีไซน์อบอุ่นใจ สไตล์โฮมเมด "</p>
       <button class="admin-only ebtn ebtn-l mx-auto" onclick="editSection('contactHead')"><i class="fa-solid fa-pen"></i> แก้ไขหัวข้อ</button>
     </div>
-    <div class="relative w-full mt-4">
-      <div class="washi-tape -top-3 left-10 rotate-[-5deg]"></div>
-      <div class="washi-tape -bottom-3 right-10 rotate-[3deg]"></div>
-      <div class="relative w-full aspect-banner rounded-3xl overflow-hidden border-4 border-white shadow-soft-float bg-cream-card p-2 sm:p-3">
-        <img id="banner-contact-img" alt="banner" class="w-full h-full object-cover rounded-2xl">
-        <button class="admin-only ebtn ebtn-l absolute top-5 right-5 z-20" onclick="changeImage('bannerContact')"><i class="fa-solid fa-camera"></i> เปลี่ยนแบนเนอร์</button>
-      </div>
+    
+    <div class="flex justify-between items-center px-2">
+      <h3 class="font-handwritten text-xl font-bold flex items-center gap-2"><i class="fa-solid id-card fa-address-book text-blush-dark"></i> ช่องทางการติดต่อ</h3>
+      <button class="admin-only ebtn ebtn-l" onclick="editContactList()"><i class="fa-solid fa-plus"></i> จัดการช่องทางติดต่อ</button>
     </div>
-    <div class="flex flex-col gap-2.5 max-w-sm mx-auto w-full px-2">
-      <a id="link-fb" href="#" target="_blank" class="flex items-center gap-3 bg-cream-card px-3 py-2 rounded-2xl border-2 border-soft-blush shadow-scrapbook hover:border-blush-dark tilt-hover">
-        <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-500 border border-blue-200 flex items-center justify-center text-sm shrink-0"><i class="fa-brands fa-facebook-f"></i></div>
-        <div class="min-w-0 flex-1"><h4 data-edit="fbName" class="font-bold text-xs">Facebook Page</h4><p data-edit="fbHandle" class="text-[11px] text-muted-brown truncate">@miori.studio.official</p></div>
-        <span data-edit="fbTag" class="text-[10px] font-bold text-blush-dark bg-soft-blush px-2 py-0.5 rounded-full whitespace-nowrap">ทักแชท</span>
-        <button class="admin-only ebtn" title="แก้ไข" onclick="event.preventDefault();editContact('fb')"><i class="fa-solid fa-pen"></i></button>
-      </a>
-      <a id="link-ig" href="#" target="_blank" class="flex items-center gap-3 bg-cream-card px-3 py-2 rounded-2xl border-2 border-soft-blush shadow-scrapbook hover:border-blush-dark tilt-hover">
-        <div class="w-8 h-8 rounded-xl bg-pink-50 text-pink-500 border border-pink-200 flex items-center justify-center text-sm shrink-0"><i class="fa-brands fa-instagram"></i></div>
-        <div class="min-w-0 flex-1"><h4 data-edit="igName" class="font-bold text-xs">Instagram</h4><p data-edit="igHandle" class="text-[11px] text-muted-brown truncate">@miori_cozy_space</p></div>
-        <span data-edit="igTag" class="text-[10px] font-bold text-blush-dark bg-soft-blush px-2 py-0.5 rounded-full whitespace-nowrap">ไอเดียแต่งห้อง</span>
-        <button class="admin-only ebtn" title="แก้ไข" onclick="event.preventDefault();editContact('ig')"><i class="fa-solid fa-pen"></i></button>
-      </a>
-      <a id="link-line" href="#" target="_blank" class="flex items-center gap-3 bg-cream-card px-3 py-2 rounded-2xl border-2 border-soft-blush shadow-scrapbook hover:border-blush-dark tilt-hover">
-        <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-500 border border-emerald-200 flex items-center justify-center text-sm shrink-0"><i class="fa-brands fa-line"></i></div>
-        <div class="min-w-0 flex-1"><h4 data-edit="lineName" class="font-bold text-xs">LINE Official</h4><p data-edit="lineHandle" class="text-[11px] text-muted-brown truncate">@mioristudio</p></div>
-        <span data-edit="lineTag" class="text-[10px] font-bold text-blush-dark bg-soft-blush px-2 py-0.5 rounded-full whitespace-nowrap">รับคูปอง</span>
-        <button class="admin-only ebtn" title="แก้ไข" onclick="event.preventDefault();editContact('line')"><i class="fa-solid fa-pen"></i></button>
-      </a>
-    </div>
+
+    <div id="contact-cards-container" class="flex flex-col gap-3.5 w-full"></div>
   </section>
 </main>
 <footer class="bg-cream-card border-t-2 border-dashed border-soft-blush py-6 mt-12 text-center text-xs text-muted-brown space-y-2">
@@ -256,10 +236,14 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&
 const load=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}};
 const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){showToast('⚠️ พื้นที่เก็บข้อมูลเต็ม ลองใช้รูปที่เล็กลง')}};
 const PLACE='https://placehold.co/400x400/F7E7E6/65524D?text=Miori+Item';
-const DEF_IMG={reviews:'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1122&q=80',contact:'https://images.unsplash.com/photo-1516962215378-7fa2e137ae93?auto=format&fit=crop&w=1122&q=80',hero:'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80'};
-const DEF_THEME={bg:'#FAF6F0',card:'#FFFDF9',primary:'#E29792',blush:'#F7E7E6',text:'#65524D',border:'#E29792'};
+const DEF_IMG={reviews:'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=1122&q=80',hero:'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80'};
+const DEF_THEME={bg:'#FAF6F0',card:'#FFFDF9',primary:'#E29792',blush:'#F7E7E6',text:'#65524D',border:'#E29792',ctrl:'#FCF4DD',revbox:'#FFFDF9'};
 const DEF_MUSIC={title:'Cozy Lofi BGM',url:'https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=lofi-study-112191.mp3'};
-const DEF_LINKS={fb:'https://facebook.com',ig:'https://instagram.com',line:'https://line.me'};
+const DEF_CONTACTS=[
+  {id:'fb',name:'Facebook Page',handle:'@miori.studio.official',tag:'ทักแชท',url:'https://facebook.com',icon:'fa-brands fa-facebook-f',color:'bg-blue-50 text-blue-500 border-blue-200'},
+  {id:'ig',name:'Instagram',handle:'@miori_cozy_space',tag:'ไอเดียแต่งห้อง',url:'https://instagram.com',icon:'fa-brands fa-instagram',color:'bg-pink-50 text-pink-500 border-pink-200'},
+  {id:'line',name:'LINE Official',handle:'@mioristudio',tag:'รับคูปอง',url:'https://line.me',icon:'fa-brands fa-line',color:'bg-emerald-50 text-emerald-500 border-emerald-200'}
+];
 const DEF_CATS=[{id:'decor',name:'ของแต่งบ้าน & ห้องนอน'},{id:'stationery',name:'เครื่องเขียน & สมุดโน้ต'},{id:'candle',name:'เทียนหอม & อโรม่า'}];
 const B='สั่งซื้อผ่าน LINE / Inbox';
 const DEF_PRODUCTS=[
@@ -274,27 +258,25 @@ const DEF_REVIEWS=[
 const oi=load('miori_info',null);
 const oldImg=k=>localStorage.getItem(k)||undefined;
 let categories=load('miori_categories',DEF_CATS), products=load('miori_products',DEF_PRODUCTS), reviewsData=load('miori_reviews',DEF_REVIEWS);
-let texts=load('miori_texts',oi?{siteTitle:oi.title,slogan:oi.slogan,fbHandle:oi.fb,igHandle:oi.ig,lineHandle:oi.line}:{});
-let links=load('miori_links',oi?{fb:oi.fbLink,ig:oi.igLink,line:oi.lineLink}:DEF_LINKS);
+let contacts=load('miori_contacts',DEF_CONTACTS);
+let texts=load('miori_texts',oi?{siteTitle:oi.title,slogan:oi.slogan}:{});
 let music=load('miori_music',oi?{title:oi.musicTitle,url:oi.musicUrl}:DEF_MUSIC);
-let images=load('miori_images',{logo:oldImg('miori_logo'),bannerStore:oldImg('miori_banner_store'),bannerReviews:oldImg('miori_banner_reviews'),bannerContact:oldImg('miori_banner_contact')});
+let images=load('miori_images',{logo:oldImg('miori_logo'),bannerStore:oldImg('miori_banner_store'),bannerReviews:oldImg('miori_banner_reviews')});
 let theme={...DEF_THEME,...load('miori_theme',{})};
 let loggedIn=localStorage.getItem('miori_admin_logged')==='true', editing=loggedIn, currentCategory='all', selectedRating=5, isAudioPlaying=false, formSave=()=>{};
 
 function applyTexts(){document.querySelectorAll('[data-edit]').forEach(el=>{if(el.dataset.def===undefined)el.dataset.def=el.textContent;const v=texts[el.dataset.edit];el.textContent=v!==undefined?v:el.dataset.def;});}
 function applyTheme(){for(const[k,v] of Object.entries(theme))document.documentElement.style.setProperty('--color-'+k,v);}
-function applyLinks(){['fb','ig','line'].forEach(k=>$('link-'+k).href=links[k]||DEF_LINKS[k]);}
 function applyMusic(){$('play-btn').title=music.title||'เล่น/หยุดเพลง';const p=$('bgm-player');if(music.url&&p.getAttribute('src')!==music.url)p.src=music.url;}
 function applyImages(){
   $('banner-reviews-img').src=images.bannerReviews||DEF_IMG.reviews;
-  $('banner-contact-img').src=images.bannerContact||DEF_IMG.contact;
   $('img-hero').src=images.hero||DEF_IMG.hero;
   const b=$('banner-store-img'),o=$('banner-store-overlay').classList,has=!!images.bannerStore;
   if(has)b.src=images.bannerStore;
   b.classList.toggle('hidden',!has);['bg-white/70','p-4','rounded-2xl'].forEach(c=>o.toggle(c,has));
   ['site','contact'].forEach(p=>{const h=!!images.logo;if(h)$(p+'-logo-img').src=images.logo;$(p+'-logo-img').classList.toggle('hidden',!h);$(p+'-logo-svg').classList.toggle('hidden',h);});
 }
-function setEditing(on){editing=on;document.body.classList.toggle('editing',on);$('gear').classList.toggle('bg-soft-blush',on);}
+function setEditing(on){editing=on;document.body.classList.toggle('editing',on);$('gear').classList.toggle('bg-soft-blush',on);renderContacts();}
 
 let formImgs={},formDel=null;
 const getText=k=>texts[k]!==undefined?texts[k]:(document.querySelector('[data-edit="'+k+'"]')?.dataset.def??'');
@@ -330,11 +312,36 @@ function editSection(n){
     tx.forEach(([k])=>texts[k]=v[k]);im.forEach(([k])=>{if(v[k])images[k]=v[k];});
     save('miori_texts',texts);save('miori_images',images);applyTexts();applyImages();showToast('✨ บันทึกแล้ว');});
 }
-function editContact(k){
-  openForm('✎ แก้ไขช่องทางติดต่อ',[{k:'name',label:'ชื่อช่องทาง',value:getText(k+'Name')},{k:'handle',label:'ชื่อบัญชี / ไอดี',value:getText(k+'Handle')},{k:'tag',label:'ข้อความป้ายเล็ก',value:getText(k+'Tag')},{k:'link',label:'ลิงก์ปลายทาง (URL)',value:links[k]||''}],v=>{
-    texts[k+'Name']=v.name;texts[k+'Handle']=v.handle;texts[k+'Tag']=v.tag;links[k]=v.link;
-    save('miori_texts',texts);save('miori_links',links);applyTexts();applyLinks();showToast('✨ บันทึกแล้ว');});
+
+function renderContacts(){
+  $('contact-cards-container').innerHTML=contacts.map(c=>`
+    <div class="relative group">
+      <a href="${esc(c.url)}" target="_blank" class="flex items-center gap-4 bg-cream-card px-4 py-3 rounded-2xl border-2 border-soft-blush shadow-scrapbook hover:border-blush-dark tilt-hover">
+        <div class="w-12 h-12 rounded-2xl ${esc(c.color)} border flex items-center justify-center text-lg shrink-0"><i class="${esc(c.icon)}"></i></div>
+        <div class="min-w-0 flex-1"><h4 class="font-bold text-sm sm:text-base">${esc(c.name)}</h4><p class="text-xs text-muted-brown truncate">${esc(c.handle)}</p></div>
+        <span class="text-xs font-bold text-blush-dark bg-soft-blush px-3 py-1 rounded-full whitespace-nowrap">${esc(c.tag)}</span>
+      </a>
+      <button class="admin-only absolute top-3 right-3 ebtn" title="แก้ไขช่องทางนี้" onclick="editSingleContact('${c.id}')"><i class="fa-solid fa-pen"></i></button>
+    </div>
+  `).join('') + `<button class="admin-only w-full py-3 rounded-2xl border-2 border-dashed custom-border-dashed items-center justify-center gap-2 text-sm font-bold text-blush-dark bg-cream-card hover:bg-soft-blush" onclick="editSingleContact()"><i class="fa-solid fa-plus"></i> เพิ่มช่องทางติดต่อใหม่</button>`;
 }
+
+function editSingleContact(id){
+  const item=id?contacts.find(x=>x.id==id):{name:'',handle:'',tag:'ติดต่อเรา',url:'https://',icon:'fa-solid fa-globe',color:'bg-orange-50 text-orange-500 border-orange-200'};
+  openForm(id?'✎ แก้ไขช่องทางติดต่อ':'➕ เพิ่มช่องทางติดต่อ',[
+    {k:'name',label:'ชื่อหัวข้อ (เช่น Facebook Page)',value:item.name},
+    {k:'handle',label:'ชื่อบัญชี / ข้อความย่อย (เช่น @miori)',value:item.handle},
+    {k:'tag',label:'ข้อความป้ายเล็ก (เช่น ทักแชท)',value:item.tag},
+    {k:'url',label:'ลิงก์ปลายทาง URL',value:item.url},
+    {k:'icon',label:'FontAwesome Icon Class (เช่น fa-brands fa-facebook-f หรือ fa-solid fa-envelope)',value:item.icon},
+    {k:'color',label:'Tailwind สีไอคอน (เช่น bg-blue-50 text-blue-500 border-blue-200)',value:item.color}
+  ],v=>{
+    if(id){Object.assign(item,v);}else{contacts.push({id:'c'+Date.now(),...v});}
+    save('miori_contacts',contacts);renderContacts();showToast('✨ บันทึกช่องทางติดต่อแล้ว');
+  },id?()=>{contacts=contacts.filter(x=>x.id!=id);save('miori_contacts',contacts);renderContacts();showToast('🗑️ ลบช่องทางติดต่อแล้ว');}:null);
+}
+
+function editContactList(){editSingleContact();}
 
 function pickImage(maxW,png,cb){
   const i=document.createElement('input');i.type='file';i.accept='image/*';
@@ -344,7 +351,7 @@ function pickImage(maxW,png,cb){
   i.click();
 }
 function changeImage(k){
-  const[w,png]={logo:[300,1],bannerStore:[1122],bannerReviews:[1122],bannerContact:[1122],hero:[500]}[k];
+  const[w,png]={logo:[300,1],bannerStore:[1122],bannerReviews:[1122],hero:[500]}[k];
   pickImage(w,!!png,d=>{images[k]=d;save('miori_images',images);applyImages();showToast('✨ เปลี่ยนรูปสำเร็จ');});
 }
 
@@ -377,7 +384,7 @@ function adminLogout(){loggedIn=false;localStorage.removeItem('miori_admin_logge
 function resetAll(){if(confirm('⚠️ รีเซ็ตข้อมูลทั้งหมดกลับเป็นค่าเริ่มต้น? ข้อมูลที่แก้ไขจะหายไป')){localStorage.clear();location.reload();}}
 
 function editTheme(){
-  const L={bg:'สีพื้นหลังหลัก',card:'สีการ์ด & ป๊อปอัป',primary:'สีปุ่ม & ไฮไลต์',blush:'สีพาสเทลอ่อน',text:'สีตัวอักษร',border:'สีเส้นขอบปรุ'};
+  const L={bg:'สีพื้นหลังหลัก',card:'สีการ์ด & ป๊อปอัป',primary:'สีปุ่ม & ไฮไลต์',blush:'สีพาสเทลอ่อน',text:'สีตัวอักษร',border:'สีเส้นขอบปรุ',ctrl:'สีปุ่มควบคุม (เล่นเพลง/เฟือง)',revbox:'สีกล่องหัวข้อรีวิว'};
   openForm('🎨 ปรับโทนสีเว็บไซต์',Object.keys(L).map(k=>({k,label:L[k],type:'color',value:theme[k]})),v=>{theme={...theme,...v};save('miori_theme',theme);applyTheme();showToast('✨ เปลี่ยนโทนสีแล้ว');});
 }
 function resetTheme(){theme={...DEF_THEME};save('miori_theme',theme);applyTheme();showToast('🔄 รีเซ็ตโทนสีแล้ว');}
@@ -500,8 +507,8 @@ function showToast(m){
   clearTimeout(showToast.t);showToast.t=setTimeout(()=>t.classList.add('-translate-y-6','opacity-0'),2800);
 }
 window.onload=()=>{
-  applyTheme();applyTexts();applyLinks();applyMusic();applyImages();
-  renderCategoryChips();renderProducts();renderReviews();setStarRating(5);setEditing(editing);
+  applyTheme();applyTexts();applyMusic();applyImages();
+  renderCategoryChips();renderProducts();renderReviews();renderContacts();setStarRating(5);setEditing(editing);
 };
 </script>
 </body>
